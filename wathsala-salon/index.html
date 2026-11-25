@@ -96,7 +96,14 @@ h3{font-size:clamp(24px,2.1vw,30px)}
 .nav a{position:relative;padding:4px 0;opacity:.85;transition:opacity .3s}
 .nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:-2px;height:1px;background:var(--gold-soft);transition:left .4s var(--ease),right .4s var(--ease)}
 .nav a:hover{opacity:1}.nav a:hover::after{left:0;right:0}
-.brand{text-align:center;font-family:var(--display);font-size:24px;line-height:1.05}
+.brand{text-align:center;font-family:var(--display);font-size:24px;line-height:1.05;display:flex;flex-direction:column;align-items:center}
+.brand-logo{width:44px;height:auto;margin-bottom:6px;transition:width .35s}
+.hdr.is-scrolled .brand-logo{width:0;margin:0}
+.award{display:inline-flex;align-items:center;gap:12px;margin:0 0 26px;padding:10px 16px;border:1px solid rgba(184,149,94,.5);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--maroon)}
+.award svg{width:22px;height:22px;color:var(--gold)}
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:900px;margin:56px auto 0}
+.portfolio .frame{aspect-ratio:3/4;overflow:hidden}
+.portfolio img{width:100%;height:100%;object-fit:cover}
 .brand span{display:block;font-family:var(--body);font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-soft);margin-top:6px}
 .hdr-end{display:flex;justify-content:flex-end;align-items:center;gap:20px}
 .hdr-end .btn{height:44px;padding:0 22px;font-size:11.5px}
@@ -157,9 +164,9 @@ h3{font-size:clamp(24px,2.1vw,30px)}
 .tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--maroon);transform:scaleX(0);transition:transform .5s var(--ease)}
 .tabs button[aria-selected="true"]{color:var(--maroon)}
 .tabs button[aria-selected="true"]::after{transform:scaleX(1)}
-.look{display:none;grid-template-columns:1.25fr 1fr;gap:clamp(36px,5vw,80px);align-items:center}
+.look{display:none;grid-template-columns:.8fr 1fr;gap:clamp(36px,5vw,80px);align-items:center}
 .look.active{display:grid}
-.look .frame{aspect-ratio:4/3}
+.look .frame{aspect-ratio:4/5;max-height:78vh;max-width:460px}
 .look h3{font-size:clamp(34px,3.4vw,52px);margin-bottom:18px}
 .look p{color:var(--mute)}
 .look ul{list-style:none;margin-top:28px;border-top:1px solid var(--line)}
@@ -231,6 +238,11 @@ footer a:hover{color:var(--gold-soft)}
 .wa-float svg{width:30px;height:30px;fill:#fff}
 
 @media (max-width:959px){
+  .brand{align-items:flex-start}
+  .brand-logo{display:none}
+  .portfolio{grid-template-columns:1fr 1fr}
+  .portfolio .frame:last-child{display:none}
+  .look .frame{max-width:none}
   .hdr-in{grid-template-columns:1fr auto}
   .hdr .nav,.hdr-end .btn{display:none}
   .brand{text-align:left;font-size:20px}
@@ -259,7 +271,7 @@ footer a:hover{color:var(--gold-soft)}
 <header class="hdr" data-header>
   <div class="hdr-in">
     <nav class="nav" aria-label="Main"><a href="#looks">Bridal looks</a><a href="#services">Services</a><a href="#journey">Your journey</a></nav>
-    <a class="brand" href="#top">Wathsala Tennakoon<span>Salon · Kurunegala</span></a>
+    <a class="brand" href="#top"><img class="brand-logo" src="images/logo.png" alt="" width="240" height="218">Wathsala Tennakoon<span>Salon · Kurunegala</span></a>
     <div class="hdr-end">
       <a class="btn" href="#book">Check your date</a>
       <button class="burger" data-menu-toggle aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu"><span></span><span></span></button>
@@ -298,7 +310,7 @@ footer a:hover{color:var(--gold-soft)}
         </div>
       </div>
       <div class="arch">
-        <div class="frame" data-reveal="image" data-delay=".35"><img src="images/hero.webp" alt="A Sri Lankan bride in traditional Kandyan dress" width="1200" height="1500" fetchpriority="high"></div>
+        <div class="frame" data-reveal="image" data-delay=".35"><img src="images/hero.webp" alt="A bride dressed by Wathsala Tennakoon Salon, smiling with her makeup artist" width="1062" height="1200" fetchpriority="high"></div>
         <div class="badge" aria-hidden="true" data-reveal="scale" data-delay="1.4">
           <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1-80 0"/></defs><text font-family="Jost" font-size="8.4" letter-spacing="3.2" fill="#B8955E"><textPath href="#circ">KANDYAN · INDIAN · WESTERN · </textPath></text></svg>
           <span>Bridal<br><i>dressing</i></span>
@@ -314,10 +326,11 @@ footer a:hover{color:var(--gold-soft)}
 
   <section class="intro pad">
     <div class="wrap grid">
-      <div class="frame" data-reveal="image"><img src="images/i1.webp" alt="Bridal makeup detail" loading="lazy" width="900" height="1125" data-parallax="6"></div>
+      <div class="frame" data-reveal="image"><img src="images/i1.webp" alt="Wathsala Tennakoon with her award from the Sri Lanka Wedding Awards" loading="lazy" width="417" height="626" data-parallax="6"></div>
       <div>
         <p class="kicker" data-reveal="up">About the salon</p>
         <h2 data-split="lines">One bride at a time, <i>like family.</i></h2>
+        <p class="award" data-reveal="up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4a5 5 0 01-10 0zM7 5H4a3 3 0 003 4M17 5h3a3 3 0 01-3 4M12 12v4M8 21h8l-1-5H9z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Recognised at the Sri Lanka Wedding Awards 2024–2025</p>
         <svg class="ornament" viewBox="0 0 120 12" aria-hidden="true" data-reveal="fade"><path d="M0 6h48M72 6h48" stroke="currentColor"/><path d="M60 0l6 6-6 6-6-6z" fill="currentColor"/></svg>
         <p class="lede" data-scrub>Wathsala Tennakoon Salon is a bridal and beauty salon in Kurunegala, known for traditional Kandyan dressing done properly: the osariya pleats, the seven-chain necklaces, the nalal patiya sitting just right.</p>
         <p class="lede" style="font-family:var(--body);font-size:17px;color:var(--mute);margin-top:22px" data-reveal="up">We work in a calm, family-style atmosphere and take time to learn what you want. Classic or modern, soft or editorial, your look is planned with you and tested before the day.</p>
@@ -338,22 +351,22 @@ footer a:hover{color:var(--gold-soft)}
         </div>
       </div>
       <div class="look active" id="l-kandyan" role="tabpanel" aria-labelledby="t-kandyan">
-        <div class="frame" data-reveal="image"><img src="images/l1.webp" alt="Kandyan bridal dressing" loading="lazy" width="1200" height="900"></div>
+        <div class="frame" data-reveal="image"><img src="images/l1.webp" alt="A Kandyan bride dressed by the salon, holding her bouquet" loading="lazy" width="417" height="626"></div>
         <div class="txt"><h3>Kandyan bride</h3><p>The full traditional look in a deep maroon, white or gold osariya, finished with Kandyan jewellery and a jasmine-framed hairstyle.</p>
           <ul><li>Osariya draping and pleating</li><li>Full Kandyan jewellery dressing, including nalal patiya</li><li>Long-wear bridal makeup for photos and heat</li></ul></div>
       </div>
       <div class="look" id="l-indian" role="tabpanel" aria-labelledby="t-indian">
-        <div class="frame"><img src="images/l2.webp" alt="Bride in saree with bridal makeup" loading="lazy" width="1200" height="900"></div>
+        <div class="frame"><img src="images/l2.webp" alt="Close-up of layered bridal jewellery dressed by the salon" loading="lazy" width="620" height="413"></div>
         <div class="txt"><h3>Indian / saree bride</h3><p>Rich colour, statement eyes and a beautifully pleated saree, styled for a bright, celebratory look.</p>
           <ul><li>Saree draping in Indian or Kandyan style</li><li>Bold eye makeup with a long-lasting base</li><li>Bun or braid styling with fresh flowers</li></ul></div>
       </div>
       <div class="look" id="l-western" role="tabpanel" aria-labelledby="t-western">
-        <div class="frame"><img src="images/l3.webp" alt="Western bridal makeup and hair" loading="lazy" width="1200" height="900"></div>
+        <div class="frame"><img src="images/l3.webp" alt="A bride in a blue Western gown with a blue and white bouquet" loading="lazy" width="417" height="625"></div>
         <div class="txt"><h3>Western bride</h3><p>Soft, clean bridal makeup with a polished updo or loose waves, designed to work with your gown and veil.</p>
           <ul><li>Natural or editorial makeup</li><li>Veil and hair accessory setting</li><li>Touch-up kit guidance for the reception</li></ul></div>
       </div>
       <div class="look" id="l-home" role="tabpanel" aria-labelledby="t-home">
-        <div class="frame"><img src="images/l4.webp" alt="Homecoming and party look" loading="lazy" width="1200" height="900"></div>
+        <div class="frame"><img src="images/l4.webp" alt="A bride in a lace gown on garden steps" loading="lazy" width="417" height="626"></div>
         <div class="txt"><h3>Homecoming</h3><p>A fresh second look for your homecoming or going-away, lighter but still camera-ready.</p>
           <ul><li>Saree or frock styling</li><li>Hair restyle with accessories</li><li>Makeup refresh to suit evening light</li></ul></div>
       </div>
@@ -397,6 +410,11 @@ footer a:hover{color:var(--gold-soft)}
       <blockquote data-split="words">“Traditional beauty, <i>styled to perfection.</i>”</blockquote>
       <div class="themes" data-reveal-group><span>Family-style care</span><span>Authentic Kandyan dressing</span><span>Makeup that lasts all day</span><span>Lovely in photos</span></div>
       <small>Themes from public reviews. Add favourite reviews from your Facebook page here.</small>
+      <div class="portfolio" data-reveal-group>
+        <div class="frame"><img src="images/l5.webp" alt="A bride in Kandyan jewellery posing by a doorway" loading="lazy" width="417" height="626"></div>
+        <div class="frame"><img src="images/ed1.webp" alt="Editorial bridal shoot with a jewelled crown" loading="lazy" width="414" height="414"></div>
+        <div class="frame"><img src="images/l1.webp" alt="A Kandyan bride with her bouquet" loading="lazy" width="417" height="626"></div>
+      </div>
     </div>
   </section>
 
@@ -443,7 +461,7 @@ footer a:hover{color:var(--gold-soft)}
     <div class="bottom">
       <span>© <span id="yr"></span> Wathsala Tennakoon Salon, Kurunegala</span>
       <span>This site counts visits anonymously to improve our service.</span>
-      <!--CREDITS--><details class="photo-credits" style="width:100%;font-size:12px;opacity:.75"><summary style="cursor:pointer">Photo credits</summary><ul style="list-style:none;margin-top:6px;line-height:1.6"><li><a href="https://commons.wikimedia.org/wiki/File:Bride,_Sri_Lanka.jpg" target="_blank" rel="noopener">Bride, Sri Lanka.jpg</a> by Rod Waddington (CC BY-SA 2.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Meribindiya_Bridal_Makeup.jpg" target="_blank" rel="noopener">Meribindiya Bridal Makeup.jpg</a> by Bridalglamguide (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Sri_Lankan_traditional_kandyan_bride_%26_bride%27s_mades.jpg" target="_blank" rel="noopener">Sri Lankan traditional kandyan bride &amp; bride&#x27;s mades.jpg</a> by M A Rangani (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Hd_bridal_makeup_look_at_patna.jpg" target="_blank" rel="noopener">Hd bridal makeup look at patna.jpg</a> by Abhineet.kanwar (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Bridal_makeup_for_Indian_Wedding.jpg" target="_blank" rel="noopener">Bridal makeup for Indian Wedding.jpg</a> by Yugaljoshi (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Bridal_makeup_.jpg" target="_blank" rel="noopener">Bridal makeup .jpg</a> by Sparkles Makeover Studio (CC BY-SA 4.0)</li></ul></details><!--/CREDITS-->
+      <!--CREDITS--><span class="photo-credits" style="width:100%;font-size:12px;opacity:.75">Photos from Wathsala Tennakoon Salon&#x27;s own Facebook page: <a href="https://www.facebook.com/wathsalathennakoonsalon/" target="_blank" rel="noopener">Facebook</a>.</span><!--/CREDITS-->
     </div>
   </div>
 </footer>

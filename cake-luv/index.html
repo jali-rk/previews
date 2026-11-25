@@ -29,6 +29,7 @@
   "url":"https://jali-rk.github.io/previews/cake-luv/",
   "image":"https://jali-rk.github.io/previews/cake-luv/images/og.jpg",
   "telephone":"+94781290322",
+  "email":"cakeluv104@gmail.com",
   "address":{"@type":"PostalAddress","streetAddress":"No 48, South Lake Road 1st Lane, Samadhi Mawatha","addressLocality":"Kurunegala","postalCode":"60000","addressRegion":"North Western Province","addressCountry":"LK"},
   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"21:00"}],
   "areaServed":"Kurunegala",
@@ -87,7 +88,8 @@ h2 em,h1 em{font-family:var(--script);font-style:normal;font-weight:700;color:va
 .hdr{position:fixed;inset:0 0 auto;z-index:100;padding:18px 0}
 .hdr.is-scrolled{background:rgba(255,245,225,.86);backdrop-filter:blur(14px);padding:10px 0;box-shadow:0 1px 0 var(--line)}
 .hdr-in{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;gap:28px}
-.logo{font-family:var(--logo);font-size:30px;color:var(--berry);line-height:.9;margin-right:auto}
+.logo{font-family:var(--logo);font-size:30px;color:var(--berry);line-height:.9;margin-right:auto;display:flex;align-items:center;gap:12px}
+.logo-mark{width:46px;height:46px;border-radius:50%}
 .logo small{display:block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--choc);margin-top:3px}
 .nav{display:flex;gap:6px;background:rgba(255,251,243,.7);padding:6px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line)}
 .nav a{padding:9px 16px;border-radius:999px;font-weight:500;font-size:15px;transition:background .3s,color .3s}
@@ -232,7 +234,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   .piping{display:none}
   .how{border-radius:32px;margin:0 3vw}
 }
-@media (max-width:520px){ .row2{grid-template-columns:1fr} .logo{font-size:26px} }
+@media (max-width:520px){ .row2{grid-template-columns:1fr} .logo{font-size:26px} .logo-mark{width:38px;height:38px} }
 @media (prefers-reduced-motion:reduce){ .sticker::before,.flame{animation:none} .menu-panel{transition:none} }
 </style>
 </head>
@@ -242,7 +244,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 
 <header class="hdr" data-header>
   <div class="hdr-in">
-    <a class="logo" href="#top">Cake Luv<small>Kurunegala</small></a>
+    <a class="logo" href="#top"><img class="logo-mark" src="images/logo.webp" alt="" width="200" height="200"><span>Cake Luv<small>Kurunegala</small></span></a>
     <nav class="nav" aria-label="Main"><a href="#design">Design a cake</a><a href="#occasions">Occasions</a><a href="#how">How to order</a><a href="#contact">Contact</a></nav>
     <a class="btn sm" href="#design" data-magnetic>Order a cake</a>
     <button class="burger" data-menu-toggle aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu"><span></span><span></span></button>
@@ -260,26 +262,26 @@ footer a{text-decoration:underline;text-underline-offset:3px}
     <div class="sprinkles" aria-hidden="true"></div>
     <div class="wrap grid">
       <div>
-        <p class="eyebrow" data-reveal="up" data-delay=".15">Homemade · Baked fresh to order</p>
+        <p class="eyebrow" data-reveal="up" data-delay=".15">Made with love for your special days</p>
         <h1 data-split="lines" data-delay=".25">Your words, <span class="swash"><em>piped</em><svg viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><path class="swash-path" d="M4 20 C40 4, 70 30, 100 16 S160 4, 196 18" fill="none" stroke="#D93A5B" stroke-width="5" stroke-linecap="round"/></svg></span> on a cake made just for you.</h1>
-        <p class="lead" data-reveal="up" data-delay=".7">Birthday, anniversary or a plain Tuesday treat. Pick the size, flavour and colour, write your message, and we bake it fresh in Kurunegala.</p>
+        <p class="lead" data-reveal="up" data-delay=".7">Making your special moments sweeter and more beautiful. Birthday and wedding cakes, wedding favours and flower bouquets, made fresh in Kurunegala. Pick the size, flavour and colour, write your message, and we'll do the rest.</p>
         <div class="cta" data-reveal="up" data-delay=".85">
           <a class="btn" href="#design" data-magnetic>Design your cake</a>
           <a class="btn ghost" href="#occasions">See our cakes</a>
         </div>
         <div class="chips-info" data-reveal-group data-delay="1">
-          <span><i></i>Daily, 9 am – 9 pm</span><span><i></i>South Lake Road, Kurunegala</span><span><i></i>Delivery in town</span>
+          <span><i></i>Birthday &amp; wedding cakes</span><span><i></i>Wedding favours</span><span><i></i>Flower bouquets</span>
         </div>
       </div>
       <div class="hero-photo">
-        <div class="frame" data-reveal="image" data-delay=".2"><img src="images/c1.webp" alt="A decorated celebration cake" width="800" height="1000" fetchpriority="high"></div>
+        <div class="frame" data-reveal="image" data-delay=".2"><img src="images/c1.webp" alt="A pink and chocolate Cake Luv birthday cake topped with fresh flowers" width="810" height="1080" fetchpriority="high"></div>
         <div class="sticker" data-reveal="scale" data-delay="1.1"><span>Order<br>24 hrs<br>ahead</span></div>
       </div>
     </div>
   </section>
 
   <div class="band-wrap"><div class="band" data-marquee data-speed="70" aria-hidden="true">
-    <div class="marquee-track"><span>Birthdays</span><i></i><span>Anniversaries</span><i></i><em>your message, piped by hand</em><i></i><span>Cupcakes</span><i></i><span>Tiered cakes</span><i></i></div>
+    <div class="marquee-track"><span>Birthday cakes</span><i></i><span>Wedding cakes</span><i></i><em>made with love for your special days</em><i></i><span>Wedding favours</span><i></i><span>Flower bouquets</span><i></i></div>
   </div></div>
 
   <section id="design" class="pad">
@@ -333,7 +335,8 @@ footer a{text-decoration:underline;text-underline-offset:3px}
           <fieldset>
             <legend><b>4</b>Topper</legend>
             <div class="chips">
-              <label><input type="radio" name="topper" value="Candles" checked><span>Candles</span></label>
+              <label><input type="radio" name="topper" value="Fresh strawberries" checked><span>Strawberries</span></label>
+              <label><input type="radio" name="topper" value="Candles"><span>Candles</span></label>
               <label><input type="radio" name="topper" value="Fresh flowers"><span>Flowers</span></label>
               <label><input type="radio" name="topper" value="Hearts"><span>Hearts</span></label>
               <label><input type="radio" name="topper" value="None"><span>None</span></label>
@@ -381,13 +384,13 @@ footer a{text-decoration:underline;text-underline-offset:3px}
     <div class="wrap">
       <div class="occ-head">
         <div><p class="eyebrow" data-reveal="up">Made for the moment</p><h2 data-split="lines">Cakes for every reason <em>to celebrate</em></h2></div>
-        <p class="sub" data-reveal="up">Every cake is baked at home, decorated by hand and finished with your message.</p>
+        <p class="sub" data-reveal="up">Every cake is decorated by hand and finished with your message. We also make wedding favours and flower bouquets.</p>
       </div>
       <div class="occasions">
-        <article class="occ" data-reveal="up"><div class="frame"><img src="images/c2.webp" alt="Birthday cake with piped decorations" loading="lazy"></div><h3>Birthdays</h3><p>Kids' themes to milestone years</p></article>
-        <article class="occ" data-reveal="up" data-delay=".08"><div class="frame"><img src="images/c3.webp" alt="Cake decorated with icing flowers" loading="lazy"></div><h3>Anniversaries</h3><p>Flowers, hearts, your names</p></article>
-        <article class="occ" data-reveal="up" data-delay=".16"><div class="frame"><img src="images/c4.webp" alt="Cupcakes with frosting" loading="lazy"></div><h3>Cupcakes</h3><p>For offices, schools, parties</p></article>
-        <article class="occ" data-reveal="up" data-delay=".24"><div class="frame"><img src="images/c5.webp" alt="Tiered celebration cake" loading="lazy"></div><h3>Tiered cakes</h3><p>Homecomings and engagements</p></article>
+        <article class="occ" data-reveal="up"><div class="frame"><img src="images/c2.webp" alt="White Happy Birthday cake with fresh strawberries and red piped hearts" loading="lazy"></div><h3>Birthdays</h3><p>Fresh strawberries, gold touches, your words</p></article>
+        <article class="occ" data-reveal="up" data-delay=".08"><div class="frame"><img src="images/c3.webp" alt="Happy Anniversary drip cake with macarons and a personal message on the board" loading="lazy"></div><h3>Anniversaries</h3><p>Drip cakes, macarons, your names</p></article>
+        <article class="occ" data-reveal="up" data-delay=".16"><div class="frame"><img src="images/c4.webp" alt="Heart cake, chocolate-dipped strawberries and cupcakes" loading="lazy"></div><h3>Favours &amp; treats</h3><p>Dipped strawberries, cupcakes, gift boxes</p></article>
+        <article class="occ" data-reveal="up" data-delay=".24"><div class="frame"><img src="images/c5.webp" alt="Strawberry cake with 22 Years Together piped on the board" loading="lazy"></div><h3>Your message</h3><p>Piped on the cake or the board</p></article>
       </div>
     </div>
   </section>
@@ -438,6 +441,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
           <dt>Address</dt><dd>No 48, South Lake Road 1st Lane,<br>Samadhi Mawatha, Kurunegala</dd>
           <dt>Phone</dt><dd><a href="tel:+94781290322">078 129 0322</a></dd>
           <dt>WhatsApp</dt><dd><a id="waText" href="#">078 129 0322</a></dd>
+          <dt>Email</dt><dd><a href="mailto:cakeluv104@gmail.com">cakeluv104@gmail.com</a></dd>
           <dt>Hours</dt><dd>Daily, 9 am – 9 pm</dd>
           <dt>Notice</dt><dd>Order at least 24 hours ahead</dd>
         </dl>
@@ -456,7 +460,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
     <div class="row">
       <span>© <span id="yr"></span> Cake Luv Kurunegala</span>
       <span><a href="https://www.facebook.com/p/Cake-Luv-Kurunegala-100063694143093/" target="_blank" rel="noopener">Facebook</a> · This site counts visits anonymously to improve our service.</span>
-      <!--CREDITS--><details class="photo-credits" style="width:100%;font-size:12px;opacity:.75"><summary style="cursor:pointer">Photo credits</summary><ul style="list-style:none;margin-top:6px;line-height:1.6"><li><a href="https://commons.wikimedia.org/wiki/File:Birthday_Cake_Bloomsburg,_Pennsylvania.jpg" target="_blank" rel="noopener">Birthday Cake Bloomsburg, Pennsylvania.jpg</a> by Tim-desser (CC0)</li><li><a href="https://commons.wikimedia.org/wiki/File:My_birthday_cake!_Oops_there%27s_only_half_left!.jpg" target="_blank" rel="noopener">My birthday cake! Oops there&#x27;s only half left!.jpg</a> by Anna.Massini (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Wedding_cake_-_Kathmandu,_Nepal_on_2018.jpg" target="_blank" rel="noopener">Wedding cake - Kathmandu, Nepal on 2018.jpg</a> by Nirmal Dulal (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Spring_Mini_Cupcakes_Publix_Bakery.jpg" target="_blank" rel="noopener">Spring Mini Cupcakes Publix Bakery.jpg</a> by Phillip Pessar (CC BY 2.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Fondant_Cake_decorated_with_flowers.jpg" target="_blank" rel="noopener">Fondant Cake decorated with flowers.jpg</a> by https://www.pexels.com/@aliciazinn (CC0)</li></ul></details><!--/CREDITS-->
+      <!--CREDITS--><span class="photo-credits" style="width:100%;font-size:12px;opacity:.75">Photos from Cake Luv Kurunegala&#x27;s own Facebook page and listing: <a href="https://www.facebook.com/p/Cake-Luv-Kurunegala-100063694143093/" target="_blank" rel="noopener">Facebook</a>.</span><!--/CREDITS-->
     </div>
   </div>
 </footer>
@@ -504,6 +508,7 @@ function draw(e){
   const ty = topY - (dims[0]*0.06);
   if(tp==="Candles"){ for(let i=-2;i<=2;i++){const x=200+i*26; top+=`<rect x="${x-4}" y="${ty-46}" width="8" height="40" rx="3" fill="${i%2?'#9CC9EE':'#E0405F'}"/><path class="flame" d="M${x} ${ty-62} q8 10 0 16 q-8 -6 0 -16" fill="#F6B93B"/>`;} }
   if(tp==="Fresh flowers"){ [[-40,"#E0405F"],[0,"#F6B93B"],[40,"#C9B6E8"]].forEach(([dx,c])=>{const x=200+dx,y=ty-14; for(let a=0;a<5;a++){const ang=a*72*Math.PI/180; top+=`<circle cx="${x+Math.cos(ang)*10}" cy="${y+Math.sin(ang)*10}" r="9" fill="${c}"/>`;} top+=`<circle cx="${x}" cy="${y}" r="6" fill="#FFF3D9"/>`;}); }
+  if(tp==="Fresh strawberries"){ const rx=(size==="2 tier"?180:dims[0])/2*0.82; for(let i=0;i<9;i++){const a=Math.PI*(1.05+i*0.11); const x=200+Math.cos(a)*rx, y=topY+Math.sin(a)*rx*0.18-6; top+=`<path d="M${x} ${y+12} c-9 -4 -10 -14 -4 -18 c3 -2 6 -1 4 0 c-2 -1 1 -2 4 0 c6 4 5 14 -4 18z" fill="#D7263D"/><path d="M${x-5} ${y-5} l5 3 l5 -3 l-5 -2z" fill="#3F8F3A"/>`;} }
   if(tp==="Hearts"){ [-36,0,36].forEach((dx,i)=>{const x=200+dx,y=ty-18-(i===1?12:0); top+=`<path d="M${x} ${y+12} l-14 -14 a8 8 0 0 1 14 -10 a8 8 0 0 1 14 10z" fill="#E0405F"/>`;}); }
   $("#topper").innerHTML = top;
   $("#summary").textContent = `${size} · ${val("flavour").replace(" (I'll explain)","")} · ${document.querySelector('input[name="colour"]:checked').value}`;

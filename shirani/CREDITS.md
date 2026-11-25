@@ -1,6 +1,7 @@
-# Photo credits: Shirani Home Made Rice & Curry
+# Photo credits: 08-shirani-rice-curry-weligama
 
-Concept photos come from Wikimedia Commons under the licences below. Replace them with the business's own photos before launch; then this file and the footer credits can be removed.
+Photos of Shirani Home Made Rice & Curry from its public listings (Google / Wanderlog, Ovation Travels).
+They are used here to show the business its own concept site. Confirm permission with the owner before the site goes live.
 
-- [Sri Lankan Rice and Curry.jpg](https://commons.wikimedia.org/wiki/File:Sri_Lankan_Rice_and_Curry.jpg) by Lankan Foodie, CC BY-SA 4.0
-- [Sri Lankan rice and curry.jpg](https://commons.wikimedia.org/wiki/File:Sri_Lankan_rice_and_curry.jpg) by Kent Wang, CC BY 4.0
+- Ovation Travels: https://ovationtravelssrilanka.com/shirani-home-made-subsidiary-of-ovation/
+- Wanderlog: https://wanderlog.com/place/details/2673683/shirani-home-made-rice--curry

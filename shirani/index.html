@@ -28,7 +28,7 @@
   "url":"https://jali-rk.github.io/previews/shirani/",
   "image":"https://jali-rk.github.io/previews/shirani/images/og.jpg",
   "telephone":"+94779206951",
-  "address":{"@type":"PostalAddress","streetAddress":"Gurubebila","addressLocality":"Weligama","addressRegion":"Southern Province","addressCountry":"LK"},
+  "address":{"@type":"PostalAddress","streetAddress":"No 36, Kadabaddagama, Gurubebila","addressLocality":"Weligama","addressRegion":"Southern Province","addressCountry":"LK"},
   "servesCuisine":["Sri Lankan","Vegetarian","Rice and curry"],
   "acceptsReservations":"True",
   "makesOffer":{"@type":"Offer","itemOffered":{"@type":"Service","name":"Sri Lankan cooking class"}}
@@ -147,12 +147,16 @@ h3{font-size:clamp(24px,2.1vw,30px);font-weight:700}
 .curry-list .sw{width:44px;height:44px;border-radius:50%;margin-bottom:22px;box-shadow:0 0 0 6px rgba(251,248,241,.1)}
 .curry-list h3{font-size:clamp(34px,3.6vw,54px);font-weight:800;margin-bottom:12px}
 .curry-list p{color:rgba(251,248,241,.78);font-size:clamp(18px,1.5vw,21px);max-width:30ch}
+.meals{display:grid;grid-template-columns:.75fr 1.25fr;gap:16px;margin-bottom:40px}
+.meals .frame{border-radius:14px;overflow:hidden;aspect-ratio:4/3}
+.meals .frame:first-child{aspect-ratio:3/4}
+.meals img{width:100%;height:100%;object-fit:cover}
 .plate-foot{padding:0 0 clamp(80px,9vw,120px);color:rgba(251,248,241,.7);font-size:15.5px}
 
 /* family */
 .family{background:var(--clay)}
 .family .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,7vw,110px);align-items:center}
-.family .frame{aspect-ratio:4/5;border-radius:16px;overflow:hidden}
+.family .frame{aspect-ratio:4/3.4;border-radius:16px;overflow:hidden}
 .family .frame img{width:100%;height:118%;object-fit:cover}
 .family h2{margin-bottom:24px}
 .family .quote{font-family:var(--display);font-weight:600;font-style:italic;font-size:clamp(22px,2vw,28px);line-height:1.38;color:var(--ink);max-width:28ch;margin:8px 0 22px}
@@ -259,7 +263,7 @@ footer a:hover{color:var(--curry)}
         <div class="btns" data-reveal="up" data-delay=".85"><a class="btn" href="#order" data-mode="eat" data-magnetic>Order rice &amp; curry</a><a class="btn curry" href="#order" data-mode="class">Book a cooking class</a></div>
       </div>
       <div class="hero-photo">
-        <div class="frame" data-reveal="image" data-delay=".2"><img src="images/f1.webp" alt="Curries cooking in a home kitchen" width="900" height="1125" fetchpriority="high"></div>
+        <div class="frame" data-reveal="image" data-delay=".2"><img src="images/f1.webp" alt="Shirani's restaurant at dusk, lit up with lanterns and fairy lights" width="900" height="1080" fetchpriority="high"></div>
         <span class="tag" data-reveal="scale" data-delay="1.1">cooked fresh today</span>
       </div>
     </div>
@@ -295,12 +299,16 @@ footer a:hover{color:var(--curry)}
       </div>
       <ol class="curry-list" id="curryList"></ol>
     </div>
+    <div class="wrap meals" data-reveal-group>
+      <div class="frame"><img src="images/f3.webp" alt="Red rice with a spread of curries in small bowls" loading="lazy" width="810" height="1080"></div>
+      <div class="frame"><img src="images/f4.webp" alt="A long table of guests at dinner at Shirani's" loading="lazy" width="640" height="480"></div>
+    </div>
     <p class="wrap plate-foot">Vegetarian and vegan friendly. Fish, chicken or prawns on request.</p>
   </section>
 
   <section class="family pad" id="family">
     <div class="wrap grid">
-      <div class="frame" data-reveal="image"><img src="images/f1.webp" alt="Curries cooking in a home kitchen" loading="lazy" width="900" height="1125" data-parallax="7"></div>
+      <div class="frame" data-reveal="image"><img src="images/f2.webp" alt="Guests sharing a home-cooked dinner at Shirani's" loading="lazy" width="640" height="295" data-parallax="7"></div>
       <div>
         <p class="hand" data-reveal="up">Our kitchen</p>
         <h2 data-split="lines">Not a restaurant. <i>A family home.</i></h2>
@@ -321,7 +329,7 @@ footer a:hover{color:var(--curry)}
           <svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 34h52a26 20 0 01-52 0z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M14 34c2-8 10-12 18-12s16 4 18 12" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M24 14c0 3 3 3 3 6M32 10c0 3 3 3 3 6M40 14c0 3 3 3 3 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
           <h3>Rice &amp; curry</h3>
           <p>A full home-cooked meal, vegetarian or with fish, chicken or prawns.</p>
-          <ul><li>Red or white rice</li><li>A spread of vegetable curries</li><li>Dhal, sambol and papadam</li><li>Vegetarian and vegan friendly</li></ul>
+          <ul><li>Rice with six vegetable curries</li><li>Or with egg, fish, chicken or prawns</li><li>BBQ or grilled fish with rice and salad</li><li>Noodles and homemade soups</li></ul>
           <p class="tip">Message us at least 1–2 hours ahead so we can start cooking!</p>
           <a class="btn" href="#order" data-mode="eat">Order a meal</a>
         </div>
@@ -350,7 +358,7 @@ footer a:hover{color:var(--curry)}
         <p class="sub" data-reveal="up">Everything is cooked fresh for you, so we need a little notice. Your message opens in WhatsApp, ready to send.</p>
         <dl data-reveal="up">
           <dt>WhatsApp</dt><dd><a href="tel:+94779206951">077 920 6951</a></dd>
-          <dt>Where</dt><dd>Gurubebila, Weligama</dd>
+          <dt>Where</dt><dd>No 36, Kadabaddagama, Gurubebila, Weligama</dd>
           <dt>Notice</dt><dd>Meals: 1–2 hours · Classes: a day ahead</dd>
         </dl>
         <iframe title="Map to Shirani Home Made Rice and Curry" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Shirani+Home+Made+Rice+%26+Curry,+Weligama&output=embed"></iframe>
@@ -385,7 +393,7 @@ footer a:hover{color:var(--curry)}
       <span>© <span id="yr"></span> Shirani Home Made Rice &amp; Curry, Weligama</span>
       <span>Gurubebila, Weligama · <a href="tel:+94779206951">077 920 6951</a></span>
       <span>This site counts visits anonymously to improve our service.</span>
-      <!--CREDITS--><details class="photo-credits" style="width:100%;font-size:12px;opacity:.75"><summary style="cursor:pointer">Photo credits</summary><ul style="list-style:none;margin-top:6px;line-height:1.6"><li><a href="https://commons.wikimedia.org/wiki/File:Sri_Lankan_Rice_and_Curry.jpg" target="_blank" rel="noopener">Sri Lankan Rice and Curry.jpg</a> by Lankan Foodie (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Sri_Lankan_rice_and_curry.jpg" target="_blank" rel="noopener">Sri Lankan rice and curry.jpg</a> by Kent Wang (CC BY 4.0)</li></ul></details><!--/CREDITS-->
+      <!--CREDITS--><span class="photo-credits" style="width:100%;font-size:12px;opacity:.75">Photos of Shirani Home Made Rice &amp; Curry from its public listings (Google / Wanderlog, Ovation Travels): <a href="https://ovationtravelssrilanka.com/shirani-home-made-subsidiary-of-ovation/" target="_blank" rel="noopener">Ovation Travels</a> · <a href="https://wanderlog.com/place/details/2673683/shirani-home-made-rice--curry" target="_blank" rel="noopener">Wanderlog</a>.</span><!--/CREDITS-->
     </div>
   </div>
 </footer>

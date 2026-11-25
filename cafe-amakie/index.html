@@ -28,6 +28,7 @@
   "url":"https://jali-rk.github.io/previews/cafe-amakie/",
   "image":"https://jali-rk.github.io/previews/cafe-amakie/images/og.jpg",
   "telephone":"+94777387355",
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"07:00","closes":"20:00"}],
   "email":"parakrama.madana@yahoo.com",
   "address":{"@type":"PostalAddress","streetAddress":"Negombo Road, Kivulgalla","addressLocality":"Narammala","postalCode":"60100","addressRegion":"North Western Province","addressCountry":"LK"},
   "servesCuisine":["Coffee","Sri Lankan","Cafe food"],
@@ -87,7 +88,7 @@ h3{font-size:clamp(22px,1.9vw,27px);letter-spacing:-.02em;font-weight:700}
 .hdr.is-scrolled{background:rgba(18,48,32,.9);backdrop-filter:blur(14px);padding:10px 0}
 .hdr-in{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;gap:30px}
 .logo{font-family:var(--display);font-weight:800;font-size:27px;letter-spacing:-.04em;margin-right:auto;display:flex;align-items:center;gap:10px}
-.logo i{width:34px;height:34px;border-radius:9px;background:var(--turmeric);display:grid;place-items:center}
+.logo-mark{width:40px;height:40px;border-radius:10px;object-fit:cover;background:#000}
 .logo i svg{width:20px;height:20px}
 .logo span{color:var(--turmeric)}
 .nav{display:flex;gap:28px;font-weight:600;font-size:15px}
@@ -238,7 +239,7 @@ footer a:hover{color:var(--turmeric-2)}
 
 <header class="hdr" data-header>
   <div class="hdr-in">
-    <a class="logo" href="#top"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5z M17 10h1.5a2.5 2.5 0 010 5H17" fill="none" stroke="#18201B" stroke-width="2"/><path d="M8 3c0 2 2 2 2 4M12 3c0 2 2 2 2 4" fill="none" stroke="#18201B" stroke-width="1.6" stroke-linecap="round"/></svg></i>Cafe Amakie<span>.</span></a>
+    <a class="logo" href="#top"><img class="logo-mark" src="images/logo.webp" alt="" width="160" height="160">Cafe Amakie<span>.</span></a>
     <nav class="nav" aria-label="Main"><a href="#why">Why stop</a><a href="#menu">Menu</a><a href="#takeaway">Takeaway</a><a href="#visit">Find us</a></nav>
     <a class="btn" href="tel:+94777387355">Call 077 738 7355</a>
     <button class="burger" data-menu-toggle aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu"><span></span><span></span></button>
@@ -262,7 +263,7 @@ footer a:hover{color:var(--turmeric-2)}
       </div>
     </div>
     <div class="hero-img">
-      <img src="images/hero.webp" alt="Coffee and food on a cafe table" width="1200" height="1000" fetchpriority="high" data-reveal="zoom">
+      <img src="images/hero.webp" alt="Cafe Amakie at night, its neon sign glowing over the glass front and outdoor tables" width="1051" height="585" fetchpriority="high" data-reveal="zoom" style="object-position:38% 50%">
       <div class="hero-tag" data-reveal="scale" data-delay="1.1"><small>Call ahead</small>Takeaway ready<br>when you arrive</div>
     </div>
   </section>
@@ -297,7 +298,7 @@ footer a:hover{color:var(--turmeric-2)}
     <div class="wrap">
       <div class="why-head">
         <div><p class="kicker" data-reveal="up">Why people stop here</p><h2 data-split="lines">A proper break, not just a quick bite</h2></div>
-        <p class="sub" data-reveal="up">These are the things guests mention again and again in their reviews.</p>
+        <p class="sub" data-reveal="up">346 people have reviewed us on Facebook, and 100% recommend us. These are the things they mention again and again.</p>
       </div>
       <div class="why" data-reveal-group>
         <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18M5 17l2-6h10l2 6M7 11l1.5-4h7L17 11" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7.5" cy="18.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="18.5" r="1.5" fill="currentColor"/></svg></div><h3>Easy parking</h3><p>Plenty of space for cars, vans and tour vehicles, right off the road.</p></article>
@@ -305,7 +306,7 @@ footer a:hover{color:var(--turmeric-2)}
         <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 14c1 2 2.5 3 4 3s3-1 4-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/></svg></div><h3>Friendly service</h3><p>Quick, warm and helpful, even when it's busy.</p></article>
         <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Clean facilities</h3><p>Clean washrooms and a tidy space to stretch your legs.</p></article>
       </div>
-      <p class="why-src" data-reveal="fade">Summarised from public reviews.</p>
+      <p class="why-src" data-reveal="fade">Summarised from public reviews. Facebook rating: 100% recommend (346 reviews).</p>
     </div>
   </section>
 
@@ -316,9 +317,9 @@ footer a:hover{color:var(--turmeric-2)}
         <p class="sub" data-reveal="up">A taste of what we serve. Ask at the counter for today's full menu.</p>
       </div>
       <div class="menu-cols">
-        <article class="mcard" data-reveal="up"><div class="frame"><img src="images/m1.webp" alt="A cappuccino" loading="lazy" width="900" height="675"></div><div class="body"><h3>Coffee &amp; drinks</h3><ul><li>Cappuccino, latte, black coffee</li><li>Iced coffee</li><li>Ceylon tea and milk tea</li><li>Fresh juices</li></ul></div></article>
-        <article class="mcard" data-reveal="up" data-delay=".1"><div class="frame"><img src="images/m2.webp" alt="Sri Lankan meal" loading="lazy" width="900" height="675"></div><div class="body"><h3>Meals</h3><ul><li>Sri Lankan rice and curry</li><li>Fried rice and noodles</li><li>Sandwiches and toasties</li><li>Breakfast plates</li></ul></div></article>
-        <article class="mcard" data-reveal="up" data-delay=".2"><div class="frame"><img src="images/m3.webp" alt="Short eats and snacks" loading="lazy" width="900" height="675"></div><div class="body"><h3>Short eats &amp; sweets</h3><ul><li>Rolls, patties and pastries</li><li>Cakes by the slice</li><li>Snacks for the road</li></ul></div></article>
+        <article class="mcard" data-reveal="up"><div class="frame"><img src="images/m1.webp" alt="A cappuccino with chocolate latte art at Cafe Amakie" loading="lazy" width="414" height="414"></div><div class="body"><h3>Coffee &amp; drinks</h3><ul><li>Cappuccino, latte, black coffee</li><li>Iced coffee</li><li>Ceylon tea and milk tea</li><li>Fresh juices and mojitos</li></ul></div></article>
+        <article class="mcard" data-reveal="up" data-delay=".1"><div class="frame"><img src="images/m2.webp" alt="A mint mojito at Cafe Amakie" loading="lazy" width="414" height="257"></div><div class="body"><h3>Mojitos &amp; meals</h3><ul><li>Sri Lankan rice and curry</li><li>Fried rice and noodles</li><li>Sandwiches and toasties</li><li>Breakfast plates</li></ul></div></article>
+        <article class="mcard" data-reveal="up" data-delay=".2"><div class="frame"><img src="images/m3.webp" alt="Outdoor tables in front of Cafe Amakie in the evening" loading="lazy" width="610" height="339"></div><div class="body"><h3>Short eats &amp; sweets</h3><ul><li>Rolls, patties and pastries</li><li>Cakes by the slice</li><li>Snacks for the road</li></ul></div></article>
       </div>
     </div>
   </section>
@@ -353,6 +354,7 @@ footer a:hover{color:var(--turmeric-2)}
         <h2 data-split="lines">On Negombo Road, Kivulgalla</h2>
         <dl data-reveal-group>
           <div><dt>Address</dt><dd>Negombo Road, Kivulgalla, Narammala 60100</dd></div>
+          <div><dt>Hours</dt><dd>Daily, 7 am – 8 pm</dd></div>
           <div><dt>Phone</dt><dd><a href="tel:+94777387355">077 738 7355</a></dd></div>
           <div><dt>Email</dt><dd><a href="mailto:parakrama.madana@yahoo.com">parakrama.madana@yahoo.com</a></dd></div>
           <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/CafeAmakie/" target="_blank" rel="noopener">facebook.com/CafeAmakie</a></dd></div>
@@ -370,7 +372,7 @@ footer a:hover{color:var(--turmeric-2)}
     <div class="row">
       <span>© <span id="yr"></span> Cafe Amakie, Kivulgalla</span>
       <span>This site counts visits anonymously to improve our service.</span>
-      <!--CREDITS--><details class="photo-credits" style="width:100%;font-size:12px;opacity:.75"><summary style="cursor:pointer">Photo credits</summary><ul style="list-style:none;margin-top:6px;line-height:1.6"><li><a href="https://commons.wikimedia.org/wiki/File:Cappuccino_and_cookie.jpg" target="_blank" rel="noopener">Cappuccino and cookie.jpg</a> by TricksterWildcat (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Cappuccino_at_ARS_Cafe.jpg" target="_blank" rel="noopener">Cappuccino at ARS Cafe.jpg</a> by Robert Smith (CC BY 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Lamprais_(Sri_Lankan_cuisine).jpg" target="_blank" rel="noopener">Lamprais (Sri Lankan cuisine).jpg</a> by AntanO (CC BY-SA 4.0)</li><li><a href="https://commons.wikimedia.org/wiki/File:Sri_Lankan_Food.jpg" target="_blank" rel="noopener">Sri Lankan Food.jpg</a> by Dennis Sylvester Hurd (CC0)</li></ul></details><!--/CREDITS-->
+      <!--CREDITS--><span class="photo-credits" style="width:100%;font-size:12px;opacity:.75">Photos from Cafe Amakie&#x27;s own Facebook page: <a href="https://www.facebook.com/CafeAmakie/" target="_blank" rel="noopener">Facebook</a>.</span><!--/CREDITS-->
     </div>
   </div>
 </footer>

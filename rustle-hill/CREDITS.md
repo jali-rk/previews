@@ -1,7 +1,11 @@
-# Photo credits: Rustle Hill Home Stay
+# Photo credits: 07-rustle-hill-homestay-ella
 
-Concept photos come from Wikimedia Commons under the licences below. Replace them with the business's own photos before launch; then this file and the footer credits can be removed.
+Photos of Rustle Hill from its public listing (Google / Wanderlog).
+They are used here to show the business its own concept site. Confirm permission with the owner before the site goes live.
 
+- Wanderlog: https://wanderlog.com/place/details/3950374/rustle-hill
+
+Other photos (Wikimedia Commons, still placeholders):
 - [A boy from Sri Lanka (Rule of thirds).jpg](https://commons.wikimedia.org/wiki/File:A_boy_from_Sri_Lanka_(Rule_of_thirds).jpg) by AntanO, CC BY 4.0
 - [Ella Gap (Valley), mountains of Sri Lanka.jpg](https://commons.wikimedia.org/wiki/File:Ella_Gap_(Valley),_mountains_of_Sri_Lanka.jpg) by Vyacheslav Argenberg, CC BY 4.0
 - [Indian peafowl (Pavo cristatus) in Ella, Sri Lanka - 01.jpg](https://commons.wikimedia.org/wiki/File:Indian_peafowl_(Pavo_cristatus)_in_Ella,_Sri_Lanka_-_01.jpg) by Satdeep Gill, CC BY-SA 4.0
