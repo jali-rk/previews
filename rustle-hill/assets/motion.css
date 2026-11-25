@@ -1,0 +1,36 @@
+/* Shared motion helpers. Site styles own the look; this file only sets
+   starting states and the mechanics that motion.js relies on. */
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Starting states: only while motion is expected (html.m) and has not failed (m-off). */
+html.m:not(.m-off) [data-reveal],
+html.m:not(.m-off) [data-reveal-group] > * { opacity: 0; }
+html.m:not(.m-off) [data-split] { visibility: hidden; }
+
+.split-line { padding-bottom: .08em; margin-bottom: -.08em; }
+
+/* Marquee */
+[data-marquee] { overflow: hidden; white-space: nowrap; }
+[data-marquee] .marquee-inner { display: inline-flex; will-change: transform; }
+[data-marquee] .marquee-track { display: inline-flex; flex: none; align-items: center; }
+
+/* Scroll progress bar */
+[data-progress] { position: fixed; inset: 0 0 auto 0; height: 2px; transform-origin: 0 50%; transform: scaleX(0); z-index: 200; pointer-events: none; }
+
+/* Header states used by motion.js (sites style .is-scrolled / .is-hidden) */
+[data-header] { transition: transform .45s cubic-bezier(.2,.7,.2,1), background-color .35s, box-shadow .35s, padding .35s; }
+[data-header].is-hidden { transform: translateY(-110%); }
+
+/* Mobile menu lock */
+html.menu-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.m [data-reveal], html.m [data-reveal-group] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  html.m [data-split] { visibility: visible !important; }
+  [data-header] { transition: none; }
+}
