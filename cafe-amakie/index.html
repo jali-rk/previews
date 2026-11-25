@@ -50,187 +50,249 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --leaf:#24553A; --leaf-2:#1A412C; --leaf-3:#123020; --turmeric:#E8A93A; --turmeric-2:#F3C66E; --kraft:#EEE2CD; --paper:#FBF8F1;
-  --ink:#18201B; --mute:#5A645D; --road:#262A27; --line:rgba(24,32,27,.12); --line-l:rgba(251,248,241,.16);
+  --night:#0E1411; --night-2:#141D18; --night-3:#1B2620; --forest:#1F4A33; --forest-2:#24553A;
+  --amber:#F2A52B; --amber-2:#FFC566; --cyan:#3FD3CF; --cream:#F6EFE2; --paper:#FBF8F1; --ink:#18201B; --mute:#A3ADA6; --mute-d:#5A645D;
+  --line:rgba(246,239,226,.1); --line-d:rgba(24,32,27,.12);
   --display:"Bricolage Grotesque",system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif;
-  --wrap:min(1240px,90vw); --r:18px; --ease:cubic-bezier(.2,.7,.2,1);
+  --wrap:min(1240px,90vw); --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{font-family:var(--body);color:var(--cream);background:var(--night);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:3px solid var(--turmeric);outline-offset:3px;border-radius:6px}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
 .wrap{width:var(--wrap);margin-inline:auto}
 h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.98}
-h2{font-size:clamp(40px,5.4vw,78px)}
-h3{font-size:clamp(22px,1.9vw,27px);letter-spacing:-.02em;font-weight:700}
-.kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--leaf);margin-bottom:20px}
-.kicker::before{content:"";width:18px;height:18px;border-radius:5px;background:var(--turmeric) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5l8 7-8 7' fill='none' stroke='%2318201B' stroke-width='3'/%3E%3C/svg%3E") center/12px no-repeat}
+h2{font-size:clamp(40px,5.2vw,76px)}
+h2 em{font-style:normal;color:var(--amber)}
+h3{font-size:clamp(21px,1.8vw,26px);letter-spacing:-.02em;font-weight:700}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px 2px rgba(242,165,43,.7)}
 .sub{font-size:clamp(17px,1.35vw,19px);color:var(--mute);max-width:50ch}
 .pad{padding:clamp(96px,11vw,150px) 0}
+/* soft spotlight that follows the pointer on dark sections */
+.spot{position:relative;isolation:isolate}
+.spot::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--mx,70%) var(--my,30%),rgba(242,165,43,.08),transparent 60%);transition:background .2s}
 
-.btn{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 26px;border-radius:14px;background:var(--turmeric);color:var(--ink);font-weight:700;font-size:16px;transition:background .3s,transform .3s var(--ease),box-shadow .3s}
-.btn:hover{background:var(--turmeric-2);box-shadow:0 14px 30px -14px rgba(232,169,58,.9)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 24px;border-radius:14px;background:var(--amber);color:var(--ink);font-weight:700;font-size:16px;transition:background .3s,box-shadow .3s,transform .3s var(--ease)}
+.btn:hover{background:var(--amber-2);box-shadow:0 0 0 6px rgba(242,165,43,.15),0 0 40px rgba(242,165,43,.45)}
 .btn svg{width:18px;height:18px}
-.btn.alt{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
-.btn.alt:hover{background:rgba(255,255,255,.08)}
-.btn.green{background:var(--leaf);color:var(--paper)}
-.btn.green:hover{background:var(--leaf-2);box-shadow:0 14px 30px -14px rgba(36,85,58,.8)}
+.btn.ghost{background:transparent;color:var(--cream);box-shadow:inset 0 0 0 1.5px rgba(246,239,226,.35)}
+.btn.ghost:hover{background:rgba(246,239,226,.06);box-shadow:inset 0 0 0 1.5px var(--cream)}
+.btn.sm{height:42px;padding:0 16px;font-size:14.5px;border-radius:11px}
 
-.concept{position:fixed;left:16px;bottom:16px;z-index:150;max-width:min(420px,calc(100vw - 130px));background:var(--leaf-3);color:var(--kraft);font-size:12.5px;line-height:1.45;padding:10px 38px 10px 14px;border-radius:12px}
-.concept strong{color:var(--turmeric-2)}
+.concept{position:fixed;left:16px;bottom:16px;z-index:150;max-width:min(420px,calc(100vw - 130px));background:rgba(14,20,17,.94);border:1px solid var(--line);color:var(--mute);font-size:12.5px;line-height:1.45;padding:10px 38px 10px 14px;border-radius:12px}
+.concept strong{color:var(--amber)}
 .concept button{position:absolute;right:8px;top:6px;width:26px;height:26px;color:#fff;font-size:16px}
-.progress{background:var(--turmeric)}
+.progress{background:linear-gradient(90deg,var(--amber),var(--cyan))}
 
 /* header */
-.hdr{position:fixed;inset:0 0 auto;z-index:100;padding:16px 0;color:var(--paper)}
-.hdr.is-scrolled{background:rgba(18,48,32,.9);backdrop-filter:blur(14px);padding:10px 0}
-.hdr-in{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;gap:30px}
-.logo{font-family:var(--display);font-weight:800;font-size:27px;letter-spacing:-.04em;margin-right:auto;display:flex;align-items:center;gap:10px}
-.logo-mark{width:40px;height:40px;border-radius:10px;object-fit:cover;background:#000}
-.logo i svg{width:20px;height:20px}
-.logo span{color:var(--turmeric)}
-.nav{display:flex;gap:28px;font-weight:600;font-size:15px}
-.nav a{opacity:.85;position:relative}
-.nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--turmeric);transform:scaleX(0);transition:transform .4s var(--ease);transform-origin:left}
-.nav a:hover{opacity:1}.nav a:hover::after{transform:scaleX(1)}
-.hdr .btn{height:44px;padding:0 18px;font-size:15px;border-radius:11px}
-.burger{display:none;width:46px;height:46px;border-radius:12px;background:var(--turmeric);color:var(--ink);position:relative}
+.hdr{position:fixed;inset:0 0 auto;z-index:100;padding:16px 0}
+.hdr.is-scrolled{background:rgba(14,20,17,.82);backdrop-filter:blur(14px) saturate(1.3);padding:10px 0;box-shadow:0 1px 0 var(--line)}
+.hdr-in{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;gap:26px}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.04em;margin-right:auto}
+.logo img{width:42px;height:42px;border-radius:11px;background:#000;box-shadow:0 0 18px rgba(242,165,43,.35)}
+.nav{display:flex;gap:26px;font-weight:600;font-size:15px}
+.nav a{opacity:.8;transition:opacity .3s,color .3s}
+.nav a:hover{opacity:1;color:var(--amber-2)}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:8px 13px;border-radius:999px;background:rgba(246,239,226,.06);box-shadow:inset 0 0 0 1px var(--line);white-space:nowrap}
+.status i{width:8px;height:8px;border-radius:50%;background:#E36B5B}
+.status.open i{background:#6BE39A;box-shadow:0 0 0 0 rgba(107,227,154,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(107,227,154,0)}100%{box-shadow:0 0 0 0 rgba(107,227,154,0)}}
+.burger{display:none;width:46px;height:46px;border-radius:12px;background:var(--amber);color:var(--ink);position:relative}
 .burger span{position:absolute;left:13px;right:13px;height:2.5px;border-radius:2px;background:currentColor;transition:transform .4s var(--ease),top .4s var(--ease)}
 .burger span:first-child{top:17px}.burger span:last-child{top:26px}
 .menu-open .burger span:first-child{top:21.5px;transform:rotate(45deg)}
 .menu-open .burger span:last-child{top:21.5px;transform:rotate(-45deg)}
-.menu-panel{position:fixed;inset:0;z-index:90;background:var(--leaf-3);color:var(--paper);padding:120px 8vw 48px;display:flex;flex-direction:column;gap:2px;visibility:hidden;transform:translateY(-100%);transition:transform .6s var(--ease),visibility .6s}
-.menu-open .menu-panel{visibility:visible;transform:none}
-.menu-panel a{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(42px,12vw,64px);line-height:1.1}
-.menu-panel .btn{font-family:var(--body);font-size:16px;letter-spacing:0;margin-top:28px;align-self:flex-start}
-.menu-panel p{margin-top:auto;font-size:14px;opacity:.7}
+.menu-panel{position:fixed;inset:0;z-index:90;background:var(--night);padding:120px 8vw 48px;display:flex;flex-direction:column;gap:2px;visibility:hidden;opacity:0;transition:opacity .45s,visibility .45s}
+.menu-open .menu-panel{visibility:visible;opacity:1}
+.menu-panel a{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(42px,12vw,62px);line-height:1.1}
+.menu-panel .btn{font-family:var(--body);letter-spacing:0;font-size:16px;margin-top:28px;align-self:flex-start}
+.menu-panel p{margin-top:auto;font-size:14px;color:var(--mute)}
 
 /* hero */
-.hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1fr 1fr;background:var(--leaf);color:var(--paper);overflow:hidden}
-.hero-copy{padding:150px 5vw 100px max(5vw,calc((100vw - 1240px)/2));display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
-.sign{display:inline-flex;align-self:flex-start;align-items:center;gap:12px;background:var(--paper);color:var(--leaf);padding:8px 14px 8px 10px;border-radius:10px;font-weight:700;font-size:14px;box-shadow:inset 0 0 0 2px var(--leaf),0 0 0 3px var(--paper)}
-.sign svg{width:22px;height:22px}
-.hero h1{font-size:clamp(54px,6.8vw,112px);margin:28px 0 26px}
-.hero h1 span{color:var(--turmeric)}
-.hero p.lead{font-size:clamp(17px,1.35vw,19.5px);max-width:42ch;color:rgba(251,248,241,.84)}
-.hero .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
-.hero-img{position:relative;overflow:hidden}
-.hero-img img{width:100%;height:100%;object-fit:cover}
-.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,48,32,.6),transparent 24%),linear-gradient(90deg,rgba(36,85,58,.35),transparent 30%)}
-.hero-tag{position:absolute;right:28px;bottom:28px;z-index:2;background:var(--turmeric);color:var(--ink);border-radius:16px;padding:16px 20px;font-family:var(--display);font-weight:800;font-size:20px;line-height:1.05;letter-spacing:-.02em;box-shadow:0 20px 40px -20px rgba(0,0,0,.6);transform:rotate(-3deg)}
-.hero-tag small{display:block;font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.hero{min-height:100svh;display:flex;align-items:center;padding:130px 0 80px;overflow:hidden;background:radial-gradient(70% 60% at 78% 40%,rgba(242,165,43,.12),transparent 60%),radial-gradient(40% 50% at 0% 100%,rgba(63,211,207,.07),transparent 70%),var(--night)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:5vw;align-items:center}
+.pin-tag{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;background:rgba(246,239,226,.06);box-shadow:inset 0 0 0 1px var(--line);font-weight:600;font-size:14px;color:var(--cream)}
+.pin-tag svg{width:18px;height:18px;color:var(--amber)}
+.hero h1{font-size:clamp(54px,6.4vw,104px);margin:26px 0 24px}
+.hero h1 span{color:var(--amber);text-shadow:0 0 28px rgba(242,165,43,.35)}
+.hero .lead{font-size:clamp(17px,1.35vw,19.5px);color:var(--mute);max-width:44ch}
+.hero .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.proof{display:grid;grid-template-columns:repeat(3,auto);gap:28px;margin-top:44px;padding-top:24px;border-top:1px solid var(--line);justify-content:start}
+.proof b{display:block;font-family:var(--display);font-size:clamp(26px,2.4vw,34px);letter-spacing:-.03em;color:var(--cream);line-height:1}
+.proof div>span{font-size:13px;color:var(--mute)}
+.stage{position:relative;perspective:1200px}
+.store{position:relative;width:min(100%,760px);margin-left:auto;border-radius:22px;transform-style:preserve-3d;will-change:transform}
+.store .glow{position:absolute;inset:-6%;border-radius:40px;background:radial-gradient(60% 60% at 30% 20%,rgba(242,165,43,.55),transparent 65%),radial-gradient(40% 40% at 70% 90%,rgba(63,211,207,.25),transparent 70%);filter:blur(40px);z-index:-1;opacity:.7}
+.store .frame{border-radius:22px;overflow:hidden;aspect-ratio:1051/585;box-shadow:0 40px 90px -40px rgba(0,0,0,.9),0 0 0 1px rgba(246,239,226,.1)}
+.store .frame img{width:100%;height:100%;object-fit:cover}
+.store .tag{position:absolute;left:-28px;bottom:-30px;display:flex;gap:14px;align-items:center;background:var(--cream);color:var(--ink);border-radius:18px;padding:12px 18px 12px 12px;box-shadow:0 24px 50px -20px rgba(0,0,0,.8);transform:translateZ(40px)}
+.store .tag img{width:56px;height:56px;border-radius:12px;background:#000}
+.store .tag b{display:block;font-family:var(--display);font-size:18px;letter-spacing:-.02em;line-height:1.1}
+.store .tag span{font-size:13px;color:var(--mute-d)}
 
-/* road trip scene */
-.trip{background:var(--road);color:var(--paper);overflow:hidden}
+/* marquee */
+.band{border-block:1px solid var(--line);padding:22px 0;background:var(--night-2)}
+.band .marquee-track span{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(24px,2.6vw,36px);padding:0 24px;color:var(--cream)}
+.band .marquee-track i{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px rgba(242,165,43,.8);flex:none}
+
+/* road scene */
+.trip{background:#121815;overflow:hidden}
 .trip-in{min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:56px;padding:110px 0 80px}
 .trip-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
-.trip-head .kicker{color:var(--turmeric-2)}
 .trip-head h2{max-width:14ch}
-.trip-head p{color:rgba(251,248,241,.68);max-width:36ch}
+.trip-head p{color:var(--mute);max-width:36ch}
 .roadbox{position:relative;height:250px}
 .towns{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;align-items:flex-start;padding:0 2%}
-.town{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(251,248,241,.55);display:flex;flex-direction:column;gap:2px}
-.town b{font-family:var(--display);font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;text-transform:none;color:var(--paper)}
+.town{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);display:flex;flex-direction:column;gap:2px}
+.town b{font-family:var(--display);font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;text-transform:none;color:var(--cream)}
 .town:last-child{text-align:right}
-.pin{position:absolute;left:50%;top:-6px;transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center}
-.pin .board{background:var(--leaf);border-radius:12px;padding:12px 18px;box-shadow:inset 0 0 0 2px var(--paper),0 0 0 3px var(--leaf);white-space:nowrap}
-.pin .board b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(20px,2vw,26px);letter-spacing:-.02em}
-.pin .board small{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--turmeric-2)}
-.pin .post{width:6px;height:44px;background:#8d948f}
-.asphalt{--dash:0px;position:absolute;left:-6vw;right:-6vw;bottom:30px;height:92px;background:#1B1E1C;border-block:4px solid #3a3f3b}
-.asphalt::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,var(--turmeric) 0 46px,transparent 46px 92px);background-position:var(--dash,0) 0}
+.pin{position:absolute;left:50%;top:-6px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.pin .board{display:flex;align-items:center;gap:12px;background:#000;border-radius:14px;padding:10px 16px 10px 10px;box-shadow:0 0 0 1px rgba(242,165,43,.5),0 0 30px rgba(242,165,43,.35);white-space:nowrap}
+.pin .board img{width:40px;height:40px;border-radius:9px}
+.pin .board b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(18px,1.8vw,24px);letter-spacing:-.02em;color:var(--amber-2);text-shadow:0 0 14px rgba(242,165,43,.6)}
+.pin .board small{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.pin .post{width:6px;height:44px;background:#5d645f}
+.asphalt{--dash:0px;position:absolute;left:-6vw;right:-6vw;bottom:30px;height:92px;background:#0A0D0B;border-block:4px solid #2a302c}
+.asphalt::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,var(--amber) 0 46px,transparent 46px 92px);background-position:var(--dash,0) 0;opacity:.85}
 .car{position:absolute;bottom:60px;left:4%;width:150px;z-index:2}
-.car svg{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 6px rgba(0,0,0,.45))}
-.stops{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-l)}
-.stops div{padding:22px 20px 0 0;display:flex;gap:12px;align-items:center;font-weight:600;color:rgba(251,248,241,.6);transition:color .4s}
-.stops div.on{color:var(--paper)}
-.stops i{width:34px;height:34px;flex:none;border-radius:10px;background:rgba(251,248,241,.08);display:grid;place-items:center;transition:background .4s}
-.stops div.on i{background:var(--turmeric);color:var(--ink)}
+.car svg{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 6px rgba(0,0,0,.6))}
+.beam{position:absolute;left:96%;top:48%;width:180px;height:60px;background:linear-gradient(90deg,rgba(255,232,170,.55),transparent);clip-path:polygon(0 40%,100% 0,100% 100%,0 60%);filter:blur(2px)}
+.stops{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.stops div{padding:22px 20px 0 0;display:flex;gap:12px;align-items:center;font-weight:600;color:var(--mute);transition:color .4s}
+.stops div.on{color:var(--cream)}
+.stops i{width:34px;height:34px;flex:none;border-radius:10px;background:rgba(246,239,226,.06);display:grid;place-items:center;transition:background .4s,box-shadow .4s}
+.stops div.on i{background:var(--amber);color:var(--ink);box-shadow:0 0 18px rgba(242,165,43,.5)}
 .stops svg{width:18px;height:18px}
 
 /* why */
-.why-head{display:grid;grid-template-columns:1.1fr 1fr;gap:6vw;align-items:end;margin-bottom:60px}
+.why-head{display:grid;grid-template-columns:1.1fr 1fr;gap:6vw;align-items:end;margin-bottom:56px}
 .why{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.why article{background:#fff;border-radius:var(--r);padding:30px 26px 34px;box-shadow:inset 0 0 0 1px var(--line);transition:transform .5s var(--ease),box-shadow .5s}
-.why article:hover{transform:translateY(-6px);box-shadow:inset 0 0 0 1px var(--line),0 24px 40px -26px rgba(24,32,27,.45)}
-.why .ic{width:54px;height:54px;border-radius:14px;background:var(--kraft);display:grid;place-items:center;margin-bottom:46px;color:var(--leaf)}
-.why .ic svg{width:28px;height:28px}
+.why article{position:relative;background:var(--night-2);border-radius:20px;padding:30px 26px 32px;box-shadow:inset 0 0 0 1px var(--line);transition:transform .5s var(--ease),box-shadow .5s;overflow:hidden}
+.why article::after{content:"";position:absolute;inset:0;background:radial-gradient(240px circle at var(--x,50%) var(--y,0%),rgba(242,165,43,.16),transparent 60%);opacity:0;transition:opacity .4s}
+.why article:hover{transform:translateY(-6px);box-shadow:inset 0 0 0 1px rgba(242,165,43,.35)}
+.why article:hover::after{opacity:1}
+.why .ic{width:52px;height:52px;border-radius:14px;background:rgba(242,165,43,.12);color:var(--amber);display:grid;place-items:center;margin-bottom:40px}
+.why .ic svg{width:26px;height:26px}
 .why h3{margin-bottom:8px}
 .why p{color:var(--mute);font-size:15.5px}
-.why-src{margin-top:18px;font-size:13.5px;color:var(--mute)}
+.score{display:flex;align-items:center;gap:22px;margin-top:40px;padding:22px 26px;border-radius:18px;background:linear-gradient(90deg,rgba(242,165,43,.12),rgba(242,165,43,0));box-shadow:inset 0 0 0 1px rgba(242,165,43,.25)}
+.score b{font-family:var(--display);font-size:clamp(44px,4.4vw,64px);letter-spacing:-.04em;color:var(--amber-2);line-height:1}
+.score p{color:var(--mute)}
+.score p strong{color:var(--cream)}
 
-/* menu */
-.menu{background:var(--kraft)}
-.menu-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:56px}
-.menu-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.mcard{background:var(--paper);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
-.mcard .frame{aspect-ratio:4/3;overflow:hidden}
-.mcard .frame img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
-.mcard:hover .frame img{transform:scale(1.06)}
-.mcard .body{padding:26px 26px 30px}
-.mcard h3{margin-bottom:14px}
-.mcard ul{list-style:none}
-.mcard li{padding:10px 0;border-top:1px dashed var(--line);display:flex;gap:10px;align-items:center}
-.mcard li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--turmeric);flex:none}
+/* menu: light section */
+.menu{background:var(--paper);color:var(--ink)}
+.menu .kicker{color:#B3711A}
+.menu .kicker::before{background:#B3711A;box-shadow:none}
+.menu h2 em{color:#C77F14}
+.menu .sub{color:var(--mute-d)}
+.menu-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:44px}
+.tabs{display:inline-flex;gap:6px;padding:6px;border-radius:16px;background:#EFE7D8;margin-bottom:34px;flex-wrap:wrap}
+.tabs button{padding:11px 18px;border-radius:11px;font-weight:700;font-size:15px;color:var(--mute-d);transition:background .35s,color .35s,box-shadow .35s}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 6px 16px -8px rgba(0,0,0,.3)}
+.panel{display:none;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.panel.active{display:grid}
+.panel .ph{position:relative;max-width:440px;max-height:72vh;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -34px rgba(24,32,27,.6)}
+.panel .ph img{width:100%;height:100%;max-height:72vh;object-fit:cover}
+.items{list-style:none;border-top:1px solid var(--line-d)}
+.items li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line-d)}
+.items b{font-weight:600;font-size:17.5px}
+.items small{display:block;color:var(--mute-d);font-size:14px}
+.add{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;font-weight:700;font-size:14px;background:#F1E6D1;color:#7A4A0C;transition:background .3s,color .3s,transform .3s var(--ease)}
+.add:hover{background:var(--amber);color:var(--ink)}
+.add.added{background:var(--ink);color:var(--amber-2)}
+.menu-note{margin-top:18px;font-size:14px;color:var(--mute-d)}
 
-/* takeaway */
-.takeaway{background:var(--turmeric);color:var(--ink);overflow:hidden}
-.ta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:6vw;align-items:center}
-.takeaway .kicker{color:var(--ink)}
-.takeaway .kicker::before{background-color:var(--paper)}
-.takeaway .sub{color:rgba(24,32,27,.75);margin-top:22px}
-.phone-card{background:var(--ink);color:var(--paper);border-radius:26px;padding:clamp(28px,3.4vw,44px)}
-.phone-card small{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--turmeric-2)}
-.phone-card .num{display:block;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.4vw,64px);letter-spacing:-.04em;margin:10px 0 12px;line-height:1}
-.phone-card p{color:rgba(251,248,241,.7);margin-bottom:26px}
-.phone-card .btns{display:flex;gap:10px;flex-wrap:wrap}
-.timer{display:flex;gap:16px;align-items:center;margin-top:34px;font-weight:600}
-.timer svg{width:64px;height:64px;flex:none}
-.ta-band{margin-top:70px;border-top:2px solid rgba(24,32,27,.85);border-bottom:2px solid rgba(24,32,27,.85);padding:16px 0}
-.ta-band .marquee-track span{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,32px);letter-spacing:-.02em;padding:0 22px}
-.ta-band .marquee-track i{width:26px;height:26px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h13M13 6l6 6-6 6' fill='none' stroke='%2318201B' stroke-width='2.6'/%3E%3C/svg%3E") center/contain no-repeat}
+/* takeaway order builder */
+.takeaway{background:var(--night-2)}
+.ta-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(40px,6vw,90px);align-items:start}
+.ta-grid .sub{margin-top:20px}
+.steps3{list-style:none;margin-top:36px;display:grid;gap:14px;counter-reset:s}
+.steps3 li{display:flex;gap:16px;align-items:center;color:var(--mute)}
+.steps3 li::before{counter-increment:s;content:counter(s);width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;color:var(--amber);box-shadow:inset 0 0 0 1.5px rgba(242,165,43,.5)}
+.tray{background:var(--night-3);border-radius:24px;padding:clamp(22px,3vw,34px);box-shadow:inset 0 0 0 1px var(--line),0 40px 80px -50px rgba(0,0,0,.9)}
+.tray h3{display:flex;justify-content:space-between;align-items:center}
+.tray h3 small{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:0;color:var(--mute)}
+.lines{list-style:none;margin:18px 0;min-height:64px}
+.lines li{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.qty{display:inline-flex;align-items:center;gap:6px}
+.qty button{width:30px;height:30px;border-radius:8px;background:rgba(246,239,226,.07);font-weight:700}
+.qty button:hover{background:var(--amber);color:var(--ink)}
+.qty span{min-width:22px;text-align:center;font-weight:700}
+.lines li.empty{display:block;color:var(--mute);font-size:15px;padding:12px 0;border:0}
+.empty a{color:var(--amber-2);border-bottom:1px solid currentColor}
+.lbl{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:18px 0 10px}
+.eta{display:flex;flex-wrap:wrap;gap:8px}
+.eta input{position:absolute;opacity:0;pointer-events:none}
+.eta span{display:inline-flex;align-items:center;height:40px;padding:0 14px;border-radius:10px;box-shadow:inset 0 0 0 1px var(--line);font-weight:600;font-size:14.5px;cursor:pointer;transition:background .3s,color .3s}
+.eta input:checked+span{background:var(--amber);color:var(--ink);box-shadow:none}
+.eta input:focus-visible+span{outline:2px solid var(--amber);outline-offset:2px}
+.tray input[type=text]{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--cream)}
+.tray input[type=text]:focus{outline:none;border-color:var(--amber)}
+.tray .btn{width:100%;margin-top:22px}
+.tray .alt{display:block;text-align:center;margin-top:12px;font-size:14px;color:var(--mute)}
+.tray .alt a{color:var(--cream);border-bottom:1px solid var(--line)}
+.minibar{position:fixed;left:50%;bottom:18px;z-index:130;transform:translate(-50%,140%);display:flex;align-items:center;gap:14px;background:var(--cream);color:var(--ink);border-radius:999px;padding:8px 8px 8px 20px;font-weight:700;box-shadow:0 20px 40px -14px rgba(0,0,0,.7);transition:transform .5s var(--ease)}
+.minibar.show{transform:translate(-50%,0)}
+.minibar a{background:var(--ink);color:var(--amber-2);border-radius:999px;padding:10px 16px;font-size:14px}
+
+/* gallery */
+.gallery{overflow:hidden}
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
+.strip{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px max(5vw,calc((100vw - 1240px)/2)) 30px;cursor:grab;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip.drag{cursor:grabbing;scroll-snap-type:none}
+.strip figure{flex:none;height:min(440px,60vh);border-radius:18px;overflow:hidden;scroll-snap-align:center;box-shadow:0 30px 60px -36px rgba(0,0,0,.9);transition:transform .5s var(--ease)}
+.strip figure:hover{transform:translateY(-6px)}
+.strip img{height:100%;width:auto;max-width:none;user-select:none;-webkit-user-drag:none}
 
 /* visit */
 .visit{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,6vw,90px);align-items:stretch}
-.visit dl{margin:36px 0 34px;border-top:1px solid var(--line)}
-.visit dl div{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.visit dl{margin:34px 0 32px;border-top:1px solid var(--line)}
+.visit dl div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
 .visit dt{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding-top:3px}
-.visit dd a{border-bottom:1.5px solid var(--turmeric)}
-.visit>div,.visit dd{min-width:0;overflow-wrap:anywhere}
-.mapbox{border-radius:24px;overflow:hidden;min-height:460px;box-shadow:inset 0 0 0 1px var(--line)}
-.mapbox iframe{width:100%;height:100%;border:0;display:block;min-height:460px}
+.visit dd{min-width:0;overflow-wrap:anywhere}
+.visit dd a{border-bottom:1.5px solid rgba(242,165,43,.6)}
+.mapbox{border-radius:24px;overflow:hidden;min-height:440px;box-shadow:inset 0 0 0 1px var(--line)}
+.mapbox iframe{width:100%;height:100%;border:0;display:block;min-height:440px;filter:invert(.9) hue-rotate(180deg) saturate(.6) brightness(.95)}
 
-footer{background:var(--leaf-3);color:rgba(251,248,241,.7);font-size:14px;padding:80px 0 48px}
-footer .big{font-family:var(--display);font-weight:800;letter-spacing:-.05em;color:var(--paper);font-size:clamp(56px,11vw,170px);line-height:.9;margin-bottom:56px}
-footer .big span{color:var(--turmeric)}
-footer .row{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;border-top:1px solid var(--line-l);padding-top:24px}
-footer a:hover{color:var(--turmeric-2)}
-
+footer{background:#0A0E0C;color:var(--mute);font-size:14px;padding:90px 0 48px}
+footer .big{font-family:var(--display);font-weight:800;letter-spacing:-.05em;color:var(--cream);font-size:clamp(56px,10vw,160px);line-height:.9;margin-bottom:56px}
+footer .big span{color:var(--amber);text-shadow:0 0 30px rgba(242,165,43,.45)}
+footer .row{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px}
+footer a:hover{color:var(--amber-2)}
 .call-float{display:none}
 
 @media (max-width:959px){
   .hdr .nav,.hdr .btn{display:none}
   .burger{display:block}
-  .hero{grid-template-columns:1fr}
-  .hero-copy{padding:130px 5vw 60px}
-  .hero-img{height:56vh}
+  .status{font-size:12px;padding:7px 10px}
+  .hero{padding:120px 0 70px}
+  .hero-grid,.why-head,.ta-grid,.visit,.panel{grid-template-columns:1fr}
+  .store{margin:30px auto 0}
+  .store .tag{left:10px;bottom:-34px}
+  .proof{grid-template-columns:repeat(3,1fr);gap:14px}
   .trip-in{min-height:0}
   .roadbox{height:250px}
   .towns{inset:auto 0 0}
   .town b{font-size:18px}
   .asphalt{bottom:62px;height:80px}
   .car{width:90px;bottom:88px}
+  .beam{width:90px}
   .stops{grid-template-columns:1fr 1fr;gap:0 10px}
-  .why-head,.ta-grid,.visit{grid-template-columns:1fr}
   .why{grid-template-columns:1fr 1fr}
-  .why .ic{margin-bottom:26px}
-  .menu-cols{grid-template-columns:1fr}
-  .call-float{display:flex;position:fixed;right:16px;bottom:16px;z-index:140;height:54px;padding:0 20px;align-items:center;gap:8px;border-radius:14px;background:var(--turmeric);color:var(--ink);font-weight:700;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+  .why .ic{margin-bottom:24px}
+  .panel .ph{max-width:none}
+  .strip figure{height:340px}
+  .call-float{display:flex;position:fixed;right:16px;bottom:16px;z-index:140;height:52px;padding:0 18px;align-items:center;gap:8px;border-radius:14px;background:var(--amber);color:var(--ink);font-weight:700;box-shadow:0 12px 30px -10px rgba(0,0,0,.6)}
+  .minibar{bottom:84px}
 }
-@media (max-width:560px){ .why{grid-template-columns:1fr} .pin .board{padding:8px 12px} .towns .town:first-child,.towns .town:last-child{font-size:11px} }
-@media (prefers-reduced-motion:reduce){ .car{left:calc(50% - 60px)} .stops div{color:var(--paper)} .menu-panel{transition:none} }
+@media (max-width:560px){ .why{grid-template-columns:1fr} .status span{display:none} .logo{font-size:21px} }
+@media (prefers-reduced-motion:reduce){ .status.open i{animation:none} .minibar{transition:none} .stops div{color:var(--cream)} }
 </style>
 </head>
 <body>
@@ -239,50 +301,62 @@ footer a:hover{color:var(--turmeric-2)}
 
 <header class="hdr" data-header>
   <div class="hdr-in">
-    <a class="logo" href="#top"><img class="logo-mark" src="images/logo.webp" alt="" width="160" height="160">Cafe Amakie<span>.</span></a>
+    <a class="logo" href="#top"><img src="images/logo.webp" alt="" width="200" height="197">Cafe Amakie</a>
     <nav class="nav" aria-label="Main"><a href="#why">Why stop</a><a href="#menu">Menu</a><a href="#takeaway">Takeaway</a><a href="#visit">Find us</a></nav>
-    <a class="btn" href="tel:+94777387355">Call 077 738 7355</a>
+    <span class="status" id="status"><i></i><span>Daily 7 am – 8 pm</span></span>
+    <a class="btn sm" href="tel:+94777387355">Call 077 738 7355</a>
     <button class="burger" data-menu-toggle aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu"><span></span><span></span></button>
   </div>
 </header>
 <nav class="menu-panel" id="menu-panel" data-menu aria-label="Mobile">
   <a href="#why">Why stop</a><a href="#menu">Menu</a><a href="#takeaway">Takeaway</a><a href="#visit">Find us</a>
   <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cafe+Amakie+Kivulgalla+Negombo+Road" target="_blank" rel="noopener">Get directions</a>
-  <p data-menu-item>Negombo Road, Kivulgalla, Narammala</p>
+  <p data-menu-item>Negombo Road, Kivulgalla, Narammala · Daily 7 am – 8 pm</p>
 </nav>
 
 <main id="top">
-  <section class="hero">
-    <div class="hero-copy">
-      <span class="sign" data-reveal="up" data-delay=".2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z" fill="currentColor"/><circle cx="12" cy="9" r="2.6" fill="#FBF8F1"/></svg>Negombo Road · Kivulgalla</span>
-      <h1 data-split="lines" data-delay=".3">Pull over. You've earned <span>a good coffee.</span></h1>
-      <p class="lead" data-reveal="up" data-delay=".7">A friendly roadside cafe between Kurunegala and Negombo, with fresh food, easy parking and clean washrooms. The stop travellers plan their trip around.</p>
-      <div class="btns" data-reveal="up" data-delay=".85">
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cafe+Amakie+Kivulgalla+Negombo+Road" target="_blank" rel="noopener" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z" fill="currentColor"/></svg>Get directions</a>
-        <a class="btn alt" href="tel:+94777387355">Call 077 738 7355</a>
+  <section class="hero spot">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pin-tag" data-reveal="up" data-delay=".15"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z" fill="currentColor"/><circle cx="12" cy="9" r="2.6" fill="#0E1411"/></svg>Negombo Road · Kivulgalla</span>
+        <h1 data-split="lines" data-delay=".25">Pull over. You've earned <span>a good coffee.</span></h1>
+        <p class="lead" data-reveal="up" data-delay=".6">A friendly roadside cafe between Kurunegala and Negombo, with fresh food, easy parking and clean washrooms. The stop travellers plan their trip around.</p>
+        <div class="btns" data-reveal="up" data-delay=".75">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cafe+Amakie+Kivulgalla+Negombo+Road" target="_blank" rel="noopener" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z" fill="currentColor"/></svg>Get directions</a>
+          <a class="btn ghost" href="#takeaway">Order takeaway ahead</a>
+        </div>
+        <div class="proof" data-reveal-group data-delay=".9">
+          <div><b><span data-count="100">100</span>%</b><span>recommend us</span></div>
+          <div><b><span data-count="346">346</span></b><span>Facebook reviews</span></div>
+          <div><b>7–8</b><span>open daily, am–pm</span></div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="store" id="store">
+          <div class="glow" aria-hidden="true"></div>
+          <div class="frame"><img id="storeImg" src="images/hero.webp" alt="Cafe Amakie at night, its neon sign glowing over the glass front and outdoor tables" width="1051" height="585" fetchpriority="high"></div>
+          <div class="tag"><img src="images/logo.webp" alt="" width="200" height="197"><div><b>The lights are on</b><span>Coffee · meals · takeaway</span></div></div>
+        </div>
       </div>
     </div>
-    <div class="hero-img">
-      <img src="images/hero.webp" alt="Cafe Amakie at night, its neon sign glowing over the glass front and outdoor tables" width="1051" height="585" fetchpriority="high" data-reveal="zoom" style="object-position:38% 50%">
-      <div class="hero-tag" data-reveal="scale" data-delay="1.1"><small>Call ahead</small>Takeaway ready<br>when you arrive</div>
-    </div>
   </section>
+
+  <div class="band" data-marquee data-speed="50" aria-hidden="true">
+    <div class="marquee-track"><span>Cappuccino</span><i></i><span>Iced coffee</span><i></i><span>Mojitos</span><i></i><span>Rice &amp; curry</span><i></i><span>Fried rice</span><i></i><span>Short eats</span><i></i><span>Cake by the slice</span><i></i></div>
+  </div>
 
   <section class="trip" id="trip" aria-label="Where Cafe Amakie is on the road">
     <div class="wrap trip-in">
       <div class="trip-head">
-        <div><p class="kicker">On your way</p><h2 data-split="lines">Right on the road you're already on.</h2></div>
+        <div><p class="kicker">On your way</p><h2 data-split="lines">Right on the road you're <em>already on.</em></h2></div>
         <p data-reveal="up">Between Kurunegala and Negombo, on the Negombo Road at Kivulgalla. No detour, no hunting for parking.</p>
       </div>
       <div class="roadbox">
-        <div class="towns">
-          <div class="town"><b>Kurunegala</b>North</div>
-          <div class="town"><b>Negombo</b>Airport side</div>
-        </div>
-        <div class="pin"><div class="board"><b>Cafe Amakie</b><small>Kivulgalla</small></div><div class="post"></div></div>
+        <div class="towns"><div class="town"><b>Kurunegala</b>North</div><div class="town"><b>Negombo</b>Airport side</div></div>
+        <div class="pin"><div class="board"><img src="images/logo.webp" alt="" width="200" height="197"><div><b>Cafe Amakie</b><small>Kivulgalla</small></div></div><div class="post"></div></div>
         <div class="asphalt"></div>
-        <div class="car" aria-hidden="true">
-          <svg viewBox="0 0 120 52"><path d="M8 36c0-6 3-9 9-10l14-12c3-3 7-4 11-4h28c5 0 9 2 12 5l11 11c10 1 19 3 19 10v6c0 2-2 4-4 4H12c-2 0-4-2-4-4z" fill="#E8A93A"/><path d="M38 14h16v12H27zM60 14h12c3 0 5 1 7 3l8 9H60z" fill="#BFD9E6"/><rect x="104" y="31" width="10" height="5" rx="2" fill="#FFF3C4"/><circle cx="30" cy="44" r="8" fill="#18201B"/><circle cx="30" cy="44" r="3.5" fill="#9aa19c"/><circle cx="92" cy="44" r="8" fill="#18201B"/><circle cx="92" cy="44" r="3.5" fill="#9aa19c"/></svg>
+        <div class="car" aria-hidden="true"><span class="beam"></span>
+          <svg viewBox="0 0 120 52"><path d="M8 36c0-6 3-9 9-10l14-12c3-3 7-4 11-4h28c5 0 9 2 12 5l11 11c10 1 19 3 19 10v6c0 2-2 4-4 4H12c-2 0-4-2-4-4z" fill="#F2A52B"/><path d="M38 14h16v12H27zM60 14h12c3 0 5 1 7 3l8 9H60z" fill="#9FC4D3"/><rect x="104" y="31" width="10" height="5" rx="2" fill="#FFF3C4"/><circle cx="30" cy="44" r="8" fill="#0A0D0B"/><circle cx="30" cy="44" r="3.5" fill="#9aa19c"/><circle cx="92" cy="44" r="8" fill="#0A0D0B"/><circle cx="92" cy="44" r="3.5" fill="#9aa19c"/></svg>
         </div>
       </div>
       <div class="stops">
@@ -294,64 +368,99 @@ footer a:hover{color:var(--turmeric-2)}
     </div>
   </section>
 
-  <section id="why" class="pad">
+  <section id="why" class="pad spot">
     <div class="wrap">
       <div class="why-head">
-        <div><p class="kicker" data-reveal="up">Why people stop here</p><h2 data-split="lines">A proper break, not just a quick bite</h2></div>
-        <p class="sub" data-reveal="up">346 people have reviewed us on Facebook, and 100% recommend us. These are the things they mention again and again.</p>
+        <div><p class="kicker" data-reveal="up">Why people stop here</p><h2 data-split="lines">A proper break, <em>not just a quick bite</em></h2></div>
+        <p class="sub" data-reveal="up">These are the things guests mention again and again in their reviews.</p>
       </div>
       <div class="why" data-reveal-group>
         <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18M5 17l2-6h10l2 6M7 11l1.5-4h7L17 11" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7.5" cy="18.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="18.5" r="1.5" fill="currentColor"/></svg></div><h3>Easy parking</h3><p>Plenty of space for cars, vans and tour vehicles, right off the road.</p></article>
         <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 4v6M5 4v6M3 7h2M21 4c-2 1-2 5 0 6v10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Good food</h3><p>Fresh, tasty and generous. Fuel for the rest of the drive.</p></article>
         <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 14c1 2 2.5 3 4 3s3-1 4-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/></svg></div><h3>Friendly service</h3><p>Quick, warm and helpful, even when it's busy.</p></article>
-        <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Clean facilities</h3><p>Clean washrooms and a tidy space to stretch your legs.</p></article>
+        <article><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Clean facilities</h3><p>Clean washrooms and a tidy space to stretch your legs.</p></article>
       </div>
-      <p class="why-src" data-reveal="fade">Summarised from public reviews. Facebook rating: 100% recommend (346 reviews).</p>
+      <div class="score" data-reveal="up"><b><span data-count="100">100</span>%</b><p><strong>recommend Cafe Amakie</strong> on Facebook, from 346 reviews. Review themes summarised from public reviews.</p></div>
     </div>
   </section>
 
   <section class="menu pad" id="menu">
     <div class="wrap">
       <div class="menu-head">
-        <div><p class="kicker" data-reveal="up">On the counter</p><h2 data-split="lines">Coffee, meals and something sweet</h2></div>
-        <p class="sub" data-reveal="up">A taste of what we serve. Ask at the counter for today's full menu.</p>
+        <div><p class="kicker" data-reveal="up">On the counter</p><h2 data-split="lines">Coffee, meals and <em>something sweet</em></h2></div>
+        <p class="sub" data-reveal="up">A guide to what we serve. Tap <b>Add</b> to build a takeaway order. Ask at the counter for today's full menu.</p>
       </div>
-      <div class="menu-cols">
-        <article class="mcard" data-reveal="up"><div class="frame"><img src="images/m1.webp" alt="A cappuccino with chocolate latte art at Cafe Amakie" loading="lazy" width="414" height="414"></div><div class="body"><h3>Coffee &amp; drinks</h3><ul><li>Cappuccino, latte, black coffee</li><li>Iced coffee</li><li>Ceylon tea and milk tea</li><li>Fresh juices and mojitos</li></ul></div></article>
-        <article class="mcard" data-reveal="up" data-delay=".1"><div class="frame"><img src="images/m2.webp" alt="A mint mojito at Cafe Amakie" loading="lazy" width="414" height="257"></div><div class="body"><h3>Mojitos &amp; meals</h3><ul><li>Sri Lankan rice and curry</li><li>Fried rice and noodles</li><li>Sandwiches and toasties</li><li>Breakfast plates</li></ul></div></article>
-        <article class="mcard" data-reveal="up" data-delay=".2"><div class="frame"><img src="images/m3.webp" alt="Outdoor tables in front of Cafe Amakie in the evening" loading="lazy" width="610" height="339"></div><div class="body"><h3>Short eats &amp; sweets</h3><ul><li>Rolls, patties and pastries</li><li>Cakes by the slice</li><li>Snacks for the road</li></ul></div></article>
+      <div class="tabs" role="tablist" aria-label="Menu" data-reveal="up">
+        <button role="tab" aria-selected="true" aria-controls="p-coffee" id="t-coffee">Coffee</button>
+        <button role="tab" aria-selected="false" aria-controls="p-cool" id="t-cool" tabindex="-1">Cool drinks</button>
+        <button role="tab" aria-selected="false" aria-controls="p-meals" id="t-meals" tabindex="-1">Meals &amp; short eats</button>
       </div>
+      <div class="panel active" id="p-coffee" role="tabpanel" aria-labelledby="t-coffee">
+        <div class="ph"><img src="images/latte.webp" alt="A cappuccino with chocolate latte art at Cafe Amakie" loading="lazy" width="769" height="960"></div>
+        <ul class="items" data-items="Cappuccino|Rich espresso and steamed milk;Latte|Smooth and milky;Black coffee|Strong and simple;Iced coffee|For the hot afternoons;Ceylon tea|Plain or with milk"></ul>
+      </div>
+      <div class="panel" id="p-cool" role="tabpanel" aria-labelledby="t-cool">
+        <div class="ph"><img src="images/mojito.webp" alt="A mint mojito at Cafe Amakie" loading="lazy" width="1175" height="650"></div>
+        <ul class="items" data-items="Mojito|Fresh mint and lime;Fresh juice|Made from today's fruit;Iced tea|Cold and refreshing;Milkshake|Ask for today's flavours"></ul>
+      </div>
+      <div class="panel" id="p-meals" role="tabpanel" aria-labelledby="t-meals">
+        <div class="ph"><img src="images/inside.webp" alt="Inside Cafe Amakie in the evening" loading="lazy" width="1080" height="813"></div>
+        <ul class="items" data-items="Rice and curry|Sri Lankan, with a spread of curries;Fried rice|Chicken, egg or vegetable;Noodles|Wok-tossed to order;Sandwich or toastie|Quick and filling;Rolls and patties|Short eats for the road;Cake slice|Something sweet"></ul>
+      </div>
+      <p class="menu-note">Items and availability change. Prices on request, call 077 738 7355.</p>
     </div>
   </section>
 
-  <section class="takeaway pad" id="takeaway">
+  <section class="takeaway pad spot" id="takeaway">
     <div class="wrap ta-grid">
       <div>
         <p class="kicker" data-reveal="up">Short on time?</p>
-        <h2 data-split="lines">Call ahead. Collect and go.</h2>
-        <p class="sub" data-reveal="up">Driving to the airport or heading home? Call us 20 minutes before you arrive and your order will be ready when you pull in.</p>
-        <div class="timer" data-reveal="up">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="26" fill="none" stroke="rgba(24,32,27,.2)" stroke-width="6"/><circle class="tick" cx="32" cy="34" r="26" fill="none" stroke="#18201B" stroke-width="6" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="108.9" transform="rotate(-90 32 34)"/><rect x="28" y="2" width="8" height="6" rx="2" fill="#18201B"/></svg>
-          <span>About 20 minutes before you arrive is perfect.</span>
+        <h2 data-split="lines">Order ahead. <em>Collect and go.</em></h2>
+        <p class="sub" data-reveal="up">Driving to the airport or heading home? Send your order with roughly when you'll arrive, and it'll be ready when you pull in.</p>
+        <ol class="steps3" data-reveal-group>
+          <li>Add items from the menu</li>
+          <li>Tell us when you'll arrive</li>
+          <li>Send it on WhatsApp, then pull in and collect</li>
+        </ol>
+      </div>
+      <div class="tray" data-reveal="up" data-delay=".1">
+        <h3>Your takeaway <small id="count">0 items</small></h3>
+        <ul class="lines" id="lines"><li class="empty">Nothing yet. <a href="#menu">Add something from the menu</a>.</li></ul>
+        <span class="lbl" id="etaLbl">I'll arrive in about</span>
+        <div class="eta" role="radiogroup" aria-labelledby="etaLbl">
+          <label><input type="radio" name="eta" value="10 minutes"><span>10 min</span></label>
+          <label><input type="radio" name="eta" value="20 minutes" checked><span>20 min</span></label>
+          <label><input type="radio" name="eta" value="30 minutes"><span>30 min</span></label>
+          <label><input type="radio" name="eta" value="45 minutes"><span>45 min</span></label>
         </div>
+        <label class="lbl" for="nm">Your name</label>
+        <input type="text" id="nm" autocomplete="name" placeholder="So we know who it's for">
+        <button class="btn" id="sendOrder" type="button">Send order on WhatsApp</button>
+        <p class="alt">Or call <a href="tel:+94777387355" data-track="takeaway_call">077 738 7355</a></p>
       </div>
-      <div class="phone-card" data-reveal="up" data-delay=".1">
-        <small>Takeaway line</small>
-        <a class="num" href="tel:+94777387355" data-track="takeaway_call">077 738 7355</a>
-        <p>Tell us what you'd like and roughly when you'll arrive.</p>
-        <div class="btns"><a class="btn" href="tel:+94777387355" data-track="takeaway_call" data-magnetic>Call to order</a><a class="btn alt" href="https://wa.me/94777387355?text=Hi%20Cafe%20Amakie!%20I'd%20like%20to%20order%20takeaway." target="_blank" rel="noopener">WhatsApp</a></div>
-      </div>
-    </div>
-    <div class="ta-band" data-marquee data-speed="60" aria-hidden="true">
-      <div class="marquee-track"><span>Call ahead</span><i></i><span>Pull in</span><i></i><span>Pick up</span><i></i><span>Back on the road</span><i></i></div>
     </div>
   </section>
 
-  <section id="visit" class="pad">
+  <section class="gallery pad" style="padding-bottom:clamp(60px,7vw,100px)">
+    <div class="wrap gal-head">
+      <div><p class="kicker" data-reveal="up">Cafe Amakie</p><h2 data-split="lines">Come for coffee, <em>stay a while</em></h2></div>
+      <p class="sub" data-reveal="up" style="max-width:30ch">Drag to look around.</p>
+    </div>
+    <div class="strip" id="strip" tabindex="0" aria-label="Photos of Cafe Amakie">
+      <figure><img src="images/inside.webp" alt="A guest playing guitar inside Cafe Amakie" loading="lazy" width="1080" height="813"></figure>
+      <figure><img src="images/latte.webp" alt="Latte art at Cafe Amakie" loading="lazy" width="769" height="960"></figure>
+      <figure><img src="images/cup.webp" alt="The Cafe Amakie neon cup sign" loading="lazy" width="870" height="864"></figure>
+      <figure><img src="images/guest.webp" alt="A guest with a coffee at Cafe Amakie" loading="lazy" width="1080" height="1296"></figure>
+      <figure><img src="images/mojito.webp" alt="A mojito at Cafe Amakie" loading="lazy" width="1175" height="650"></figure>
+      <figure><img src="images/hero.webp" alt="Cafe Amakie storefront at night" loading="lazy" width="1051" height="585"></figure>
+    </div>
+  </section>
+
+  <section id="visit" class="pad spot" style="padding-top:clamp(60px,7vw,100px)">
     <div class="wrap visit">
       <div>
         <p class="kicker" data-reveal="up">Find us</p>
-        <h2 data-split="lines">On Negombo Road, Kivulgalla</h2>
+        <h2 data-split="lines">On Negombo Road, <em>Kivulgalla</em></h2>
         <dl data-reveal-group>
           <div><dt>Address</dt><dd>Negombo Road, Kivulgalla, Narammala 60100</dd></div>
           <div><dt>Hours</dt><dd>Daily, 7 am – 8 pm</dd></div>
@@ -359,7 +468,7 @@ footer a:hover{color:var(--turmeric-2)}
           <div><dt>Email</dt><dd><a href="mailto:parakrama.madana@yahoo.com">parakrama.madana@yahoo.com</a></dd></div>
           <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/CafeAmakie/" target="_blank" rel="noopener">facebook.com/CafeAmakie</a></dd></div>
         </dl>
-        <a class="btn green" href="https://www.google.com/maps/search/?api=1&query=Cafe+Amakie+Kivulgalla+Negombo+Road" target="_blank" rel="noopener" data-magnetic>Get directions</a>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cafe+Amakie+Kivulgalla+Negombo+Road" target="_blank" rel="noopener" data-magnetic>Get directions</a>
       </div>
       <div class="mapbox" data-reveal="up"><iframe title="Map to Cafe Amakie Kivulgalla" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Cafe+Amakie,+Negombo+Road,+Kivulgalla&output=embed"></iframe></div>
     </div>
@@ -376,38 +485,140 @@ footer a:hover{color:var(--turmeric-2)}
     </div>
   </div>
 </footer>
+<div class="minibar" id="minibar" aria-live="polite"><span id="miniTxt">Takeaway · 0 items</span><a href="#takeaway">Review order</a></div>
 <a class="call-float" href="tel:+94777387355" aria-label="Call Cafe Amakie">
   <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.6 3.6a1 1 0 01-.25 1z" fill="currentColor"/></svg>Call
 </a>
 <script>
-document.getElementById("yr").textContent = new Date().getFullYear();
+const WHATSAPP = "94777387355";
+const $ = id => document.getElementById(id);
+$("yr").textContent = new Date().getFullYear();
+
+// live open / closed (Sri Lanka time, daily 7 am – 8 pm)
+(function(){
+  const lk = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Colombo"})), h = lk.getHours() + lk.getMinutes()/60, st = $("status");
+  if(h >= 7 && h < 20){ st.classList.add("open"); st.querySelector("span").textContent = "Open now · until 8 pm"; }
+  else st.querySelector("span").textContent = "Closed · opens 7 am";
+})();
+
+// menu: build item rows with Add buttons
+const order = new Map();
+document.querySelectorAll(".items").forEach(ul => {
+  ul.dataset.items.split(";").forEach(row => {
+    const [name, note] = row.split("|");
+    const li = document.createElement("li");
+    li.innerHTML = `<div><b>${name}</b><small>${note}</small></div><button class="add" type="button" data-name="${name}">+ Add</button>`;
+    ul.appendChild(li);
+  });
+});
+function render(){
+  const lines = $("lines"), n = [...order.values()].reduce((a,b)=>a+b,0);
+  lines.innerHTML = n ? "" : '<li class="empty">Nothing yet. <a href="#menu">Add something from the menu</a>.</li>';
+  order.forEach((q, name) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${name}</span><span class="qty"><button type="button" aria-label="One less ${name}" data-d="-1">−</button><span>${q}</span><button type="button" aria-label="One more ${name}" data-d="1">+</button></span>`;
+    li.querySelectorAll("button").forEach(b => b.addEventListener("click", () => change(name, +b.dataset.d)));
+    lines.appendChild(li);
+  });
+  $("count").textContent = `${n} item${n===1?"":"s"}`;
+  $("miniTxt").textContent = `Takeaway · ${n} item${n===1?"":"s"}`;
+  $("minibar").classList.toggle("show", n > 0 && !isTrayVisible());
+  document.querySelectorAll(".add").forEach(b => { const on = order.has(b.dataset.name); b.classList.toggle("added", on); b.textContent = on ? `✓ ${order.get(b.dataset.name)} added` : "+ Add"; });
+}
+function change(name, d){ const q = (order.get(name) || 0) + d; if(q <= 0) order.delete(name); else order.set(name, q); render(); }
+document.addEventListener("click", e => {
+  const b = e.target.closest(".add"); if(!b) return;
+  change(b.dataset.name, 1);
+  const M = window.Motion; if(M && M.gsap && !M.reduced) M.gsap.fromTo(b, {scale:.9}, {scale:1, duration:.5, ease:"back.out(3)"});
+});
+function isTrayVisible(){ const r = document.querySelector(".tray").getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; }
+addEventListener("scroll", () => $("minibar").classList.toggle("show", order.size > 0 && !isTrayVisible()), {passive:true});
+$("sendOrder").addEventListener("click", () => {
+  const eta = document.querySelector('input[name="eta"]:checked').value, nm = $("nm").value.trim();
+  const items = [...order].map(([n,q]) => `• ${q} × ${n}`);
+  const msg = ["Hi Cafe Amakie! I'd like a takeaway order ☕", ...(items.length ? items : ["(I'll tell you what I'd like)"]), `Arriving in about ${eta}`, nm ? `Name: ${nm}` : ""].filter(Boolean).join("\n");
+  if(window.trackLead) trackLead("order_request", {items: items.length, eta});
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+});
+
+// menu tabs
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function selectTab(t){
+  let shown;
+  tabs.forEach(x => { const on = x===t, p = $(x.getAttribute("aria-controls")); x.setAttribute("aria-selected", on); x.tabIndex = on?0:-1; p.classList.toggle("active", on); if(on) shown = p; });
+  const M = window.Motion;
+  if(M && M.gsap && !M.reduced){
+    M.gsap.fromTo(shown.querySelector(".ph"), {opacity:0, y:30, rotate:-2}, {opacity:1, y:0, rotate:0, duration:.9, ease:"expo.out"});
+    M.gsap.fromTo(shown.querySelectorAll(".items li"), {opacity:0, x:20}, {opacity:1, x:0, duration:.6, stagger:.05, ease:"expo.out"});
+  }
+}
+tabs.forEach((t,i) => {
+  t.addEventListener("click", () => selectTab(t));
+  t.addEventListener("keydown", e => { if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ const n = tabs[(i + (e.key==="ArrowRight"?1:-1) + tabs.length) % tabs.length]; n.focus(); selectTab(n); } });
+});
+
+// drag-to-scroll gallery
+(function(){
+  const s = $("strip"); let down = false, x0 = 0, l0 = 0, moved = false;
+  s.addEventListener("pointerdown", e => { if(e.pointerType !== "mouse") return; down = true; moved = false; x0 = e.clientX; l0 = s.scrollLeft; s.classList.add("drag"); });
+  addEventListener("pointermove", e => { if(!down) return; const dx = e.clientX - x0; if(Math.abs(dx) > 3) moved = true; s.scrollLeft = l0 - dx; });
+  addEventListener("pointerup", () => { down = false; s.classList.remove("drag"); });
+})();
+
+// pointer spotlight on dark sections + glow on "why" cards
+document.querySelectorAll(".spot").forEach(sec => sec.addEventListener("pointermove", e => {
+  const r = sec.getBoundingClientRect(); sec.style.setProperty("--mx", (e.clientX - r.left) + "px"); sec.style.setProperty("--my", (e.clientY - r.top) + "px");
+}));
+document.querySelectorAll(".why article").forEach(c => c.addEventListener("pointermove", e => {
+  const r = c.getBoundingClientRect(); c.style.setProperty("--x", (e.clientX - r.left) + "px"); c.style.setProperty("--y", (e.clientY - r.top) + "px");
+}));
 
 onMotion(function (M) {
   var g = M.gsap, stops = document.querySelectorAll(".stops div");
   if (M.reduced) { stops.forEach(function (s) { s.classList.add("on"); }); return; }
-  // hero image settles, copy lifts as you scroll away
-  g.to(".hero-img img", { yPercent: 10, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
-  // road trip: the car drives from Kurunegala and pulls in at the cafe; the road keeps moving
+  // the lights come on: the storefront starts dim, the neon flickers on, then the glow settles
+  var img = $("storeImg");
+  g.set(img, { filter: "brightness(.28) saturate(.5)" });
+  g.timeline({ delay: .5 })
+    .from(".store", { y: 40, opacity: 0, duration: 1.2, ease: "expo.out" })
+    .to(img, { filter: "brightness(1.05) saturate(1)", duration: .08 }, .55)
+    .to(img, { filter: "brightness(.45) saturate(.6)", duration: .08 })
+    .to(img, { filter: "brightness(1.1) saturate(1.05)", duration: .06 }, "+=.12")
+    .to(img, { filter: "brightness(.6) saturate(.7)", duration: .05 })
+    .to(img, { filter: "brightness(1) saturate(1)", duration: .6, ease: "power2.out", clearProps: "filter" })
+    .from(".store .glow", { opacity: 0, duration: 1.2, ease: "power2.out" }, "-=.6")
+    .from(".store .tag", { y: 24, opacity: 0, duration: .9, ease: "expo.out" }, "-=.9");
+  g.to(".store .glow", { opacity: .45, duration: 2.6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2.5 });
+
+  // 3D tilt on the storefront (desktop pointer only)
+  if (M.fine) {
+    var st = $("store"), rx = g.quickTo(st, "rotationX", { duration: .8, ease: "power3" }), ry = g.quickTo(st, "rotationY", { duration: .8, ease: "power3" });
+    document.querySelector(".hero").addEventListener("pointermove", function (e) {
+      var r = st.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - .5) * 8); rx(-((e.clientY - r.top) / r.height - .5) * 6);
+    });
+    document.querySelector(".hero").addEventListener("pointerleave", function () { rx(0); ry(0); });
+  }
+  g.to(".stage", { yPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  // road trip: the car drives in at night and pulls up at the neon sign
   var mm = g.matchMedia();
   function build(pin) {
     var roadbox = document.querySelector(".roadbox"), car = document.querySelector(".car");
     var stopX = function () { return roadbox.clientWidth / 2 - car.offsetWidth / 2 - car.offsetLeft; };
-    var tl = g.timeline({ scrollTrigger: { trigger: ".trip", start: pin ? "top top" : "top 70%", end: pin ? "+=1400" : "bottom 40%", scrub: .6, pin: pin, anticipatePin: 1, invalidateOnRefresh: true } });
+    var tl = g.timeline({ scrollTrigger: { trigger: ".trip", start: pin ? "top top" : "top 70%", end: pin ? "+=1300" : "bottom 40%", scrub: .6, pin: pin, anticipatePin: 1, invalidateOnRefresh: true } });
     tl.to(".asphalt", { "--dash": "-920px", ease: "none", duration: 1 }, 0)
       .to(car, { x: stopX, ease: "power2.out", duration: .7 }, 0)
-      .to(car, { rotation: -2, duration: .05, yoyo: true, repeat: 1, transformOrigin: "80% 100%" }, .68)
-      .fromTo(".pin .board", { scale: .85 }, { scale: 1, ease: "back.out(3)", duration: .12 }, .62);
-    tl.scrollTrigger.vars.onUpdate = null;
-    g.ticker.add(lights);
+      .fromTo(".pin .board", { scale: .85, boxShadow: "0 0 0 1px rgba(242,165,43,.2), 0 0 0 rgba(242,165,43,0)" }, { scale: 1, boxShadow: "0 0 0 1px rgba(242,165,43,.6), 0 0 40px rgba(242,165,43,.5)", ease: "back.out(3)", duration: .12 }, .62);
     function lights() { var pr = tl.progress(); stops.forEach(function (s, i) { s.classList.toggle("on", pr > .66 + i * .08); }); }
+    g.ticker.add(lights);
     return function () { g.ticker.remove(lights); stops.forEach(function (s) { s.classList.remove("on"); }); };
   }
   mm.add("(min-width: 960px)", function () { return build(true); });
   mm.add("(max-width: 959px)", function () { return build(false); });
 
-  // takeaway timer fills up
-  g.fromTo(".timer .tick", { strokeDashoffset: 163.4 }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".takeaway", start: "top 70%", end: "bottom 60%", scrub: .5 } });
+  // gallery drifts in
+  g.from("#strip figure", { x: 80, opacity: 0, duration: 1.1, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: "#strip", start: "top 85%", once: true } });
 });
 </script>
 </body>
