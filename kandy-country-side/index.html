@@ -115,14 +115,44 @@ h3{font-size:clamp(23px,2vw,28px)}
 .hero h1 span{color:var(--hill)}
 .top p{color:var(--mute);font-size:clamp(17px,1.4vw,20px);max-width:40ch}
 .top .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.pano{position:relative;width:var(--wrap);margin-inline:auto;height:min(62vh,600px);border-radius:18px;overflow:hidden}
-html.m-ready .pano{border-radius:0}
-.pano img{width:100%;height:100%;object-fit:cover}
-.pano .dawn{position:absolute;inset:0;background:linear-gradient(180deg,rgba(242,201,160,.45) 0%,rgba(242,201,160,0) 45%,rgba(28,36,34,.25) 100%);mix-blend-mode:multiply;pointer-events:none}
-.calm{position:absolute;left:0;right:0;bottom:0;height:38%;pointer-events:none}
-.calm svg{width:100%;height:100%;display:block}
-.calm-label{position:absolute;right:24px;bottom:18px;color:#fff;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;display:flex;gap:10px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.4)}
-.calm-label b{font-weight:800;color:var(--peach)}
+/* town <-> hills: drag to hear the difference */
+.scene{position:relative;width:var(--wrap);margin-inline:auto;height:min(64vh,560px);min-height:380px;border-radius:22px;overflow:hidden;background:#C7B9AC;touch-action:pan-y;user-select:none;box-shadow:0 40px 80px -50px rgba(28,36,34,.6)}
+.scene>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene .veh{animation:drive var(--t,14s) linear infinite;animation-delay:var(--d,0s)}
+.scene .veh.rev{animation-name:drive-rev}
+@keyframes drive{from{transform:translateX(-260px)}to{transform:translateX(1460px)}}
+@keyframes drive-rev{from{transform:translateX(1460px)}to{transform:translateX(-260px)}}
+.scene .ring{transform-box:fill-box;transform-origin:center;animation:ring 1.6s ease-out infinite}
+@keyframes ring{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.scene .bird{animation:glide var(--t,22s) linear infinite;animation-delay:var(--d,0s)}
+@keyframes glide{from{transform:translate(-80px,0)}50%{transform:translate(620px,-26px)}to{transform:translate(1320px,8px)}}
+.scene .flap{transform-box:fill-box;transform-origin:center;animation:flap .7s ease-in-out infinite alternate}
+@keyframes flap{to{transform:scaleY(.35)}}
+.scene .mist{animation:mist 30s ease-in-out infinite alternate}
+@keyframes mist{to{transform:translateX(-120px)}}
+.scene .win{animation:flick 3s steps(2) infinite;animation-delay:var(--d,0s)}
+@keyframes flick{50%{opacity:.35}}
+.lab{position:absolute;top:22px;z-index:3;padding:10px 14px;border-radius:14px;backdrop-filter:blur(6px);pointer-events:none;transition:opacity .3s}
+.lab em{font-style:normal}
+.lab b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(18px,1.8vw,24px);line-height:1.1}
+.lab span{font-size:13px;font-weight:600;opacity:.8}
+.lab.town{left:22px;background:rgba(43,49,53,.55);color:#F3EDE6}
+.lab.hills{right:22px;background:rgba(247,246,242,.7);color:var(--hill-dd);text-align:right}
+.meter{position:absolute;left:50%;bottom:22px;z-index:3;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:999px;background:rgba(247,246,242,.88);backdrop-filter:blur(8px);font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--hill-dd);box-shadow:0 10px 30px -16px rgba(0,0,0,.5);pointer-events:none}
+.meter .bars{display:flex;align-items:flex-end;gap:3px;height:18px}
+.meter .bars i{width:4px;border-radius:2px;background:rgba(63,91,105,.2);transition:background .25s}
+.meter .bars i.on{background:#C4553A}
+.meter .bars i.on.ok{background:var(--moss)}
+.meter b{min-width:44px}
+.handle{position:absolute;top:0;bottom:0;left:50%;z-index:4;width:0;cursor:ew-resize}
+.handle::before{content:"";position:absolute;top:0;bottom:0;left:-1.5px;width:3px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 0 24px rgba(255,255,255,.6)}
+.knob{position:absolute;top:50%;left:0;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);transition:transform .3s var(--ease)}
+.knob svg{width:28px;height:28px;color:var(--hill-dd)}
+.handle:hover .knob,.handle:focus-visible .knob,.scene.dragging .knob{transform:scale(1.1)}
+.handle:focus-visible{outline:none}
+.handle:focus-visible .knob{box-shadow:0 0 0 4px var(--peach),0 12px 30px -10px rgba(0,0,0,.5)}
+.hint{position:absolute;top:calc(50% + 40px);left:0;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5);transition:opacity .4s}
+.scene.used .hint{opacity:0}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
 .facts div{padding:30px 22px 30px 0}
 .facts div+div{padding-left:22px;border-left:1px solid var(--line)}
@@ -210,7 +240,11 @@ footer a:hover{color:var(--peach)}
   .hero{padding-top:120px}
   .top,.home .grid,.bf-head,.book .grid{grid-template-columns:1fr}
   .top{gap:22px;margin-bottom:36px}
-  .pano{height:46vh;border-radius:14px}
+  .scene{height:440px;border-radius:16px}
+  .lab{top:14px;padding:8px 10px}
+  .lab.town{left:12px}.lab.hills{right:12px}
+  .lab span,.lab em{display:none}
+  .meter{bottom:14px;padding:8px 12px;font-size:11px}
   .facts{grid-template-columns:1fr 1fr}
   .facts div{padding:20px 14px 20px 0!important;border-left:0!important}
   .facts div:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}
@@ -219,6 +253,7 @@ footer a:hover{color:var(--peach)}
   .shuttle{grid-template-columns:1fr;gap:14px}
   form,.two{grid-template-columns:1fr}
 }
+@media (prefers-reduced-motion:reduce){ .scene .veh,.scene .ring,.scene .bird,.scene .flap,.scene .mist,.scene .win{animation:none} }
 </style>
 </head>
 <body>
@@ -251,11 +286,47 @@ footer a:hover{color:var(--peach)}
         <div class="acts" data-reveal="up" data-delay=".75"><a class="btn" href="#book" data-magnetic>Check your dates</a><a class="btn peach" href="#breakfast">Choose breakfast</a></div>
       </div>
     </div>
-    <div class="pano" data-reveal="up" data-delay=".4">
-      <img src="images/hero.webp" alt="Green hills around Kandy" width="1600" height="686" fetchpriority="high">
-      <div class="dawn"></div>
-      <div class="calm" aria-hidden="true"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path id="calmPath" d="M0 120 L1200 120" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" opacity=".95"/></svg></div>
-      <p class="calm-label" aria-hidden="true">City <b id="calmWord">noise</b></p>
+    <div class="scene" id="scene" data-reveal="up" data-delay=".4">
+      <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="skyTown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6E7F8A"/><stop offset="1" stop-color="#C9B8A8"/></linearGradient>
+          <linearGradient id="skyHills" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C9A2"/><stop offset=".55" stop-color="#FBEEDD"/><stop offset="1" stop-color="#EAF0EC"/></linearGradient>
+          <radialGradient id="sunGlow"><stop offset="0" stop-color="#FFE7C7"/><stop offset=".5" stop-color="#F6C08F" stop-opacity=".7"/><stop offset="1" stop-color="#F6C08F" stop-opacity="0"/></radialGradient>
+          <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+          <clipPath id="clipTown"><rect id="clipTownR" x="0" y="0" width="600" height="520"/></clipPath>
+          <clipPath id="clipHills"><rect id="clipHillsR" x="600" y="0" width="600" height="520"/></clipPath>
+        </defs>
+        <g clip-path="url(#clipHills)">
+          <rect width="1200" height="520" fill="url(#skyHills)"/>
+          <circle cx="880" cy="150" r="120" fill="url(#sunGlow)"/><circle cx="880" cy="150" r="44" fill="#F8D2A8"/>
+          <path d="M0 300 C140 230 260 250 380 210 S620 150 760 210 S1020 170 1200 230 V520 H0Z" fill="#A9BEC6"/>
+          <g class="mist"><rect x="-100" y="250" width="1500" height="46" rx="23" fill="#fff" opacity=".55" filter="url(#blur8)"/></g>
+          <path d="M0 340 C160 290 300 320 460 280 S760 250 900 300 S1100 290 1200 300 V520 H0Z" fill="#83A27E"/>
+          <g id="house" transform="translate(760 262)"><path d="M0 22 L34 0 L68 22Z" fill="#B5654A"/><rect x="6" y="22" width="56" height="34" fill="#F7F6F2"/><rect x="14" y="30" width="12" height="12" fill="#F6D08A"/><rect x="38" y="30" width="16" height="26" fill="#8C6A55"/><rect x="14" y="30" width="12" height="12" fill="#FFE9B0" opacity=".6" filter="url(#blur8)"/></g>
+          <path d="M0 390 C200 350 360 380 560 350 S920 340 1200 360 V520 H0Z" fill="#5F8452"/>
+          <g fill="#3E5B3A"><path d="M640 360 q6 -60 2 -110 M642 250 q-30 -6 -48 10 M642 250 q30 -8 46 8 M642 250 q-18 -24 -40 -26 M642 250 q14 -24 38 -24" stroke="#3E5B3A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M1080 372 q6 -70 0 -126 M1080 246 q-32 -6 -50 12 M1080 246 q32 -8 50 10 M1080 246 q-18 -26 -42 -28 M1080 246 q16 -26 40 -26" stroke="#3E5B3A" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+          <path d="M0 430 C240 410 420 440 640 420 S1000 410 1200 425 V520 H0Z" fill="#4B6E41"/>
+          <g fill="none" stroke="#6E9460" stroke-width="5" stroke-linecap="round" opacity=".8"><path d="M-20 470 C200 455 420 480 640 462 S1000 455 1240 468"/><path d="M-20 498 C220 484 440 508 660 490 S1020 484 1240 496"/></g>
+          <g id="birds"></g>
+        </g>
+        <g clip-path="url(#clipTown)">
+          <rect width="1200" height="520" fill="url(#skyTown)"/>
+          <circle cx="300" cy="170" r="70" fill="#E9CFB2" opacity=".28" filter="url(#blur8)"/>
+          <g id="far"></g><g id="near"></g>
+          <g stroke="#2B3135" stroke-width="2" fill="none" opacity=".6"><path d="M80 400 V250 M420 400 V250 M760 400 V250 M1100 400 V250"/><path d="M80 262 Q250 290 420 262 T760 262 T1100 262"/></g>
+          <rect y="400" width="1200" height="120" fill="#2B3135"/><rect y="398" width="1200" height="6" fill="#5A6368"/>
+          <path d="M0 462 H1200" stroke="#E9D9A0" stroke-width="4" stroke-dasharray="40 34" opacity=".8"/>
+          <g id="traffic"></g>
+        </g>
+        <path id="wave" d="M0 500 H1200" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" opacity=".85"/>
+      </svg>
+      <div class="lab town"><b>Kandy town</b><span>Traffic, horns, crowds</span></div>
+      <div class="lab hills"><b><em>Your stay in </em>Halloluwa</b><span>Birdsong and green hills</span></div>
+      <div class="meter" aria-hidden="true">Noise <span class="bars" id="bars"></span><b id="noiseWord">Calm</b></div>
+      <div class="handle" id="handle" role="slider" tabindex="0" aria-label="Drag between busy Kandy town and the quiet hills of Halloluwa" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Half town, half hills">
+        <span class="knob"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M10 8l-6 6 6 6M18 8l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="hint">Drag</span>
+      </div>
     </div>
     <div class="wrap facts" data-reveal-group>
       <div><b><span data-count="2">2</span> bedrooms</b><span>Room for families and small groups</span></div>
@@ -387,38 +458,86 @@ const message = () => ["Hello Kandy Country Side Home Stay!", `Check-in: ${$("ci
 $("waBtn").addEventListener("click", () => { if(window.trackLead) trackLead("booking_request", {via:"whatsapp"}); window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message())}`, "_blank", "noopener"); });
 $("mailBtn").addEventListener("click", () => { if(window.trackLead) trackLead("booking_request", {via:"email"}); location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Booking enquiry")}&body=${encodeURIComponent(message())}`; });
 
-// "without the noise": a jagged noise line that settles into a calm hill line (calm = 0..1)
-const calmPath = $("calmPath"), N = 120, seeds = Array.from({length:N+1}, (_,i) => Math.sin(i*12.9898)*43758.5453 % 1);
-function drawCalm(calm){
-  let d = "";
-  for(let i=0;i<=N;i++){
-    const x = i*1200/N;
-    const hills = 120 - 34*Math.sin(i/N*Math.PI*2.2 + .6) - 16*Math.sin(i/N*Math.PI*5.1);
-    const noise = (seeds[i]) * 70 * (i%2 ? 1 : -1);
-    const y = hills + noise*Math.pow(1-calm, 1.6);
-    d += (i ? " L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
+// "without the noise": drag between Kandy town and the quiet hills
+(function(){
+  const NS = "http://www.w3.org/2000/svg", rnd = (i => () => (i = (i*16807) % 2147483647) / 2147483647)(7);
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for(const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
+  // skyline
+  const far = $("far"), near = $("near");
+  for(let x=-10; x<1210;){ const w = 50+rnd()*70, h = 110+rnd()*150; el("rect",{x, y:400-h, width:w, height:h, fill:"#7F8C94"}, far); x += w+4; }
+  for(let x=-20; x<1220;){ const w = 60+rnd()*90, h = 70+rnd()*120, g = el("g",{}, near);
+    el("rect",{x, y:400-h, width:w, height:h, fill: rnd()<.5 ? "#4E5A62" : "#56626A"}, g);
+    for(let wy=400-h+12; wy<390; wy+=18) for(let wx=x+8; wx<x+w-10; wx+=16) if(rnd()<.55) el("rect",{x:wx, y:wy, width:8, height:9, fill:"#F3D38A", class: rnd()<.25 ? "win" : "", style:`--d:${(rnd()*3).toFixed(1)}s`}, g);
+    x += w+6; }
+  // traffic: tuk-tuks, buses and cars, both directions, horns pulsing
+  const traffic = $("traffic");
+  const tuk = c => `<path d="M0 0 h46 q10 0 12 -10 l4 -20 q2 -10 -8 -10 h-34 q-14 0 -18 14z" fill="${c}"/><path d="M8 -26 q4 -14 18 -14 h22 l-4 14z" fill="#222"/><circle cx="10" cy="2" r="7" fill="#111"/><circle cx="48" cy="2" r="7" fill="#111"/>`;
+  const bus = c => `<rect x="0" y="-48" width="150" height="48" rx="8" fill="${c}"/>${[12,40,68,96,124].map(x=>`<rect x="${x}" y="-40" width="20" height="16" rx="2" fill="#CFE3EC"/>`).join("")}<circle cx="28" cy="2" r="9" fill="#111"/><circle cx="122" cy="2" r="9" fill="#111"/>`;
+  const car = c => `<path d="M0 0 h86 v-16 q0 -8 -10 -10 l-14 -2 l-12 -12 h-26 l-14 12 l-10 2 q-10 2 -10 12z" fill="${c}"/><circle cx="18" cy="2" r="8" fill="#111"/><circle cx="68" cy="2" r="8" fill="#111"/>`;
+  const fleet = [[tuk,"#F2C230",440,11,0,0],[bus,"#C4553A",500,17,-6,1],[car,"#E8E3D8",440,9,-3,0],[tuk,"#3E8F5A",500,12,-9,1],[tuk,"#D93A3A",440,10,-6,0],[car,"#3F5B69",500,8,-1,1]];
+  fleet.forEach(([shape, col, y, t, d, rev]) => {
+    const g = el("g",{class:"veh" + (rev ? " rev" : ""), style:`--t:${t}s;--d:${d}s`}, traffic);
+    g.innerHTML = `<g transform="translate(0 ${y})${rev ? " scale(-1 1)" : ""}">${shape(col)}<circle class="ring" cx="${shape===bus?150:56}" cy="-30" r="16" fill="none" stroke="#F3D38A" stroke-width="3"/></g>`;
+  });
+  // birds over the hills
+  const birds = $("birds");
+  [[90,22,0],[120,26,-8],[70,20,-14],[140,30,-4]].forEach(([y,t,d]) => { const g = el("g",{class:"bird", style:`--t:${t}s;--d:${d}s`}, birds); g.innerHTML = `<path class="flap" d="M0 ${y} q8 -8 16 0 q8 -8 16 0" fill="none" stroke="#3F5B69" stroke-width="2.4" stroke-linecap="round"/>`; });
+  // noise meter
+  const bars = $("bars"); for(let i=0;i<8;i++){ const b = document.createElement("i"); b.style.height = (5+i*1.8) + "px"; bars.appendChild(b); }
+
+  const scene = $("scene"), svg = scene.querySelector("svg"), handle = $("handle"), wave = $("wave"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let split = .5, svgX = 600;
+  function set(v){
+    split = Math.max(0, Math.min(1, v));
+    const r = scene.getBoundingClientRect(), px = split * r.width;
+    handle.style.left = px + "px";
+    const m = svg.getScreenCTM(); svgX = m ? (r.left + px - m.e) / m.a : split*1200;
+    $("clipTownR").setAttribute("width", Math.max(0, svgX)); $("clipHillsR").setAttribute("x", svgX); $("clipHillsR").setAttribute("width", Math.max(0, 1200 - svgX));
+    const lit = Math.round(split * 8);
+    [...bars.children].forEach((b,i) => { b.classList.toggle("on", i < Math.max(1, lit)); b.classList.toggle("ok", lit <= 2); });
+    $("noiseWord").textContent = lit >= 6 ? "Busy" : lit >= 3 ? "Some" : "Calm";
+    const pct = Math.round((1 - split) * 100);
+    handle.setAttribute("aria-valuenow", pct); handle.setAttribute("aria-valuetext", `${pct}% hills, ${100-pct}% town`);
+    scene.querySelector(".lab.town").style.opacity = split < .14 ? 0 : 1; scene.querySelector(".lab.hills").style.opacity = split > .86 ? 0 : 1;
   }
-  calmPath.setAttribute("d", d);
-  $("calmWord").textContent = calm > .85 ? "calm" : "noise";
-}
-drawCalm(matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 0);
+  // the sound wave: jagged over the town, gentle over the hills
+  let t = 0, running = false;
+  function drawWave(){
+    let d = ""; t += .09;
+    for(let x=0; x<=1200; x+=8){
+      const town = 1/(1+Math.exp((x - svgX)/18));     // 1 left of the handle, 0 right of it
+      const jag = Math.sin(x*.21 + t*3.1)*Math.sin(x*.053 - t*1.7)*22 + Math.sin(x*.9 + t*5)*6;
+      const calm = Math.sin(x*.018 + t*.6)*4;
+      d += (x ? "L" : "M") + x + " " + (496 + jag*town + calm*(1-town)).toFixed(1);
+    }
+    wave.setAttribute("d", d);
+    if(running) requestAnimationFrame(drawWave);
+  }
+  new IntersectionObserver(es => { const v = es[0].isIntersecting; if(v && !running && !reduce){ running = true; drawWave(); } else if(!v) running = false; }).observe(scene);
+  // drag, click, keyboard
+  let drag = false;
+  const fromEvent = e => { const r = scene.getBoundingClientRect(); set((e.clientX - r.left) / r.width); };
+  handle.addEventListener("pointerdown", e => { drag = true; scene.classList.add("dragging","used"); handle.setPointerCapture(e.pointerId); e.preventDefault(); });
+  handle.addEventListener("pointermove", e => { if(drag) fromEvent(e); });
+  handle.addEventListener("pointerup", () => { drag = false; scene.classList.remove("dragging"); if(window.trackLead) trackLead("scene_drag"); });
+  scene.addEventListener("click", e => { if(e.target.closest(".handle")) return; scene.classList.add("used"); animateTo((e.clientX - scene.getBoundingClientRect().left) / scene.getBoundingClientRect().width); });
+  handle.addEventListener("keydown", e => { const k = {ArrowLeft:-.05, ArrowRight:.05, Home:-1, End:1}[e.key]; if(k === undefined) return; e.preventDefault(); scene.classList.add("used"); set(k === -1 ? 0 : k === 1 ? 1 : split + k); });
+  addEventListener("resize", () => set(split));
+  function animateTo(v){ const M = window.Motion; if(M && M.gsap && !M.reduced){ const o = {v: split}; M.gsap.to(o, {v, duration:.8, ease:"expo.out", onUpdate: () => set(o.v)}); } else set(v); }
+  window.kandyScene = { set, animateTo, get split(){ return split; } };
+  set(.5); drawWave();
+})();
 
 onMotion(function (M) {
-  if (M.reduced) { drawCalm(1); return; }
-  var g = M.gsap, st = { v: 0 };
-  // the line jitters a little while noisy, then calms with scroll
-  var jitter = 0;
-  g.ticker.add(function () { if (st.v < .98) { jitter++; if (jitter % 6 === 0) { for (var i = 0; i < seeds.length; i++) seeds[i] = (seeds[i] + .37 * Math.sin(i + jitter)) % 1; } drawCalm(st.v); } });
-  g.to(st, { v: 1, ease: "none", scrollTrigger: { trigger: ".pano", start: "top 75%", end: "bottom 35%", scrub: .4 }, onUpdate: function () { drawCalm(st.v); } });
-  // panorama opens up to full width as it scrolls into view (desktop)
-  g.matchMedia().add("(min-width: 960px)", function () {
-    var pano = document.querySelector(".pano");
-    var side = function () { return Math.max(0, (window.innerWidth - document.querySelector(".top").offsetWidth) / 2); };
-    g.set(pano, { width: "100%" });
-    g.fromTo(pano, { clipPath: function () { return "inset(0px " + side() + "px round 18px)"; } }, { clipPath: "inset(0px 0px round 0px)", ease: "none", scrollTrigger: { trigger: pano, start: "top 80%", end: "top 15%", scrub: .4, invalidateOnRefresh: true } });
-    return function () { g.set(pano, { clearProps: "width,clipPath" }); };
-    g.fromTo(".pano img", { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".pano", start: "top bottom", end: "bottom top", scrub: true } });
-  });
+  if (M.reduced) return;
+  var g = M.gsap, o = { v: .82 };
+  // first time the scene is in view, the handle sweeps across to show what it does
+  M.ScrollTrigger.create({ trigger: "#scene", start: "top 70%", once: true, onEnter: function () {
+    if (document.getElementById("scene").classList.contains("used")) return;
+    g.timeline({ onUpdate: function () { kandyScene.set(o.v); } })
+      .fromTo(o, { v: .82 }, { v: .18, duration: 1.8, ease: "power2.inOut" })
+      .to(o, { v: .5, duration: 1.1, ease: "expo.out" });
+  } });
 });
 </script>
 </body>

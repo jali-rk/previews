@@ -139,9 +139,17 @@ h2 em,h1 em{font-family:var(--script);font-style:normal;font-weight:700;color:va
 .design-head{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:end;margin-bottom:56px}
 .builder{display:grid;grid-template-columns:1fr 1.05fr;gap:28px;align-items:start}
 .stage{position:sticky;top:96px;background:radial-gradient(circle at 50% 38%,#fff 0%,var(--cream) 55%,var(--butter-2) 100%);border-radius:var(--r);padding:28px 28px 22px;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
-.stage::before{content:"Live preview";position:absolute;top:22px;left:24px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--choc-soft);display:flex;gap:8px;align-items:center}
+.stage::before{content:"Live preview";position:absolute;top:24px;left:24px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--choc-soft);display:flex;gap:8px;align-items:center}
 .stage svg{width:100%;height:auto;display:block}
-.price-note{text-align:center;font-weight:500;color:var(--choc-soft);font-size:15px;margin-top:4px}
+.price-note{text-align:center;font-weight:600;color:var(--choc);font-size:15px;margin-top:6px}
+.size-note{text-align:center;font-size:12.5px;color:var(--choc-soft);margin-top:4px}
+.views{position:absolute;top:14px;right:14px;z-index:2;display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px var(--line)}
+.views button{padding:7px 13px;border-radius:999px;font-size:13px;font-weight:700;color:var(--choc-soft);transition:background .3s,color .3s}
+.views button[aria-pressed="true"]{background:var(--choc);color:var(--butter)}
+.chips span small{font-size:11.5px;font-weight:500;opacity:.7;margin-left:6px}
+.chips input:disabled+span{opacity:.4;cursor:not-allowed}
+b.num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--choc);color:var(--butter);font-size:12px}
+#cakeSvg{touch-action:pan-y}
 #orderForm{background:var(--cream);border-radius:var(--r);padding:clamp(24px,3vw,40px);box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:26px}
 fieldset{border:0}
 legend,.field label{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;margin-bottom:12px}
@@ -291,28 +299,36 @@ footer a{text-decoration:underline;text-underline-offset:3px}
         <p class="sub" data-reveal="up">Build your cake below and watch it change. When it looks right, tap the button and your order opens in WhatsApp, ready to send. We reply with the price and confirm your date.</p>
       </div>
       <div class="builder">
-        <div class="stage" aria-live="polite" data-reveal="up">
-          <svg id="cakeSvg" viewBox="0 70 400 310" role="img" aria-label="Preview of your cake">
-            <ellipse cx="200" cy="352" rx="170" ry="22" fill="#E9CF9A"/>
-            <ellipse cx="200" cy="346" rx="150" ry="16" fill="#FFFDF8"/>
-            <g id="tiers"></g>
-            <text id="msg" x="200" y="0" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="30" fill="#3A2118"></text>
-            <g id="topper"></g>
-          </svg>
-          <p class="price-note" id="summary"></p>
+        <div class="stage" data-reveal="up">
+          <div class="views" role="group" aria-label="Preview angle">
+            <button type="button" data-view="side" aria-pressed="true">Side view</button>
+            <button type="button" data-view="top" aria-pressed="false">Top view</button>
+          </div>
+          <svg id="cakeSvg" viewBox="0 50 400 335" role="img" aria-label="Preview of your cake"><g id="cake"></g></svg>
+          <p class="price-note" id="summary" aria-live="polite"></p>
+          <p class="size-note">Sizes are a guide. We confirm the final size and price on WhatsApp.</p>
         </div>
         <form id="orderForm" onsubmit="return false" data-reveal="up" data-delay=".1">
           <fieldset>
             <legend><b>1</b>Size</legend>
             <div class="chips" data-key="size">
-              <label><input type="radio" name="size" value="1 kg" checked><span>1 kg</span></label>
-              <label><input type="radio" name="size" value="1.5 kg"><span>1.5 kg</span></label>
-              <label><input type="radio" name="size" value="2 kg"><span>2 kg</span></label>
-              <label><input type="radio" name="size" value="2 tier"><span>2 tier</span></label>
+              <label><input type="radio" name="size" value="1 kg" checked><span>1 kg<small>~8 in</small></span></label>
+              <label><input type="radio" name="size" value="1.5 kg"><span>1.5 kg<small>~9 in</small></span></label>
+              <label><input type="radio" name="size" value="2 kg"><span>2 kg<small>~10 in</small></span></label>
+              <label><input type="radio" name="size" value="2 tier"><span>2 tier<small>9 + 6 in</small></span></label>
             </div>
           </fieldset>
           <fieldset>
-            <legend><b>2</b>Flavour</legend>
+            <legend><b>2</b>Shape</legend>
+            <div class="chips">
+              <label><input type="radio" name="shape" value="Round" checked><span>Round</span></label>
+              <label><input type="radio" name="shape" value="Square"><span>Square</span></label>
+              <label><input type="radio" name="shape" value="Heart" id="heartOpt"><span>Heart</span></label>
+            </div>
+            <span class="hint" id="shapeHint"></span>
+          </fieldset>
+          <fieldset>
+            <legend><b>3</b>Flavour</legend>
             <div class="chips">
               <label><input type="radio" name="flavour" value="Chocolate" checked><span>Chocolate</span></label>
               <label><input type="radio" name="flavour" value="Vanilla butter"><span>Vanilla butter</span></label>
@@ -322,7 +338,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
             </div>
           </fieldset>
           <fieldset>
-            <legend><b>3</b>Icing colour</legend>
+            <legend><b>4</b>Icing colour</legend>
             <div class="chips swatches">
               <label><input type="radio" name="colour" value="Strawberry pink" data-hex="#F49AB0" checked><span style="--sw:#F49AB0;background:#F49AB0" title="Strawberry pink"></span></label>
               <label><input type="radio" name="colour" value="Cream white" data-hex="#FFF8EC"><span style="--sw:#FFF8EC;background:#FFF8EC" title="Cream white"></span></label>
@@ -333,7 +349,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
             </div>
           </fieldset>
           <fieldset>
-            <legend><b>4</b>Topper</legend>
+            <legend><b>5</b>Topper</legend>
             <div class="chips">
               <label><input type="radio" name="topper" value="Fresh strawberries" checked><span>Strawberries</span></label>
               <label><input type="radio" name="topper" value="Candles"><span>Candles</span></label>
@@ -343,10 +359,18 @@ footer a{text-decoration:underline;text-underline-offset:3px}
             </div>
           </fieldset>
           <div class="field">
-            <label for="message"><b style="display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--choc);color:var(--butter);font-size:12px">5</b>Message on the cake</label>
-            <input id="message" maxlength="28" placeholder="Happy Birthday Amma" value="Happy Birthday!">
+            <label for="message"><b class="num">6</b>Message on the cake</label>
+            <input id="message" maxlength="28" placeholder="Happy Birthday Amma" value="Happy Birthday Amma">
             <span class="hint">Up to 28 characters. Sinhala, Tamil or English is fine.</span>
           </div>
+          <fieldset>
+            <legend>Where should the message go?</legend>
+            <div class="chips">
+              <label><input type="radio" name="place" value="top" checked><span>On top</span></label>
+              <label><input type="radio" name="place" value="side"><span>On the side</span></label>
+              <label><input type="radio" name="place" value="board"><span>On the board</span></label>
+            </div>
+          </fieldset>
           <div class="row2">
             <div class="field">
               <label for="date">Date needed</label>
@@ -481,61 +505,172 @@ function shade(hex, amt){ // darken/lighten a hex colour
   r=Math.max(0,Math.min(255,r)); g=Math.max(0,Math.min(255,g)); b=Math.max(0,Math.min(255,b));
   return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
 }
-function tier(cx, bottom, w, h, col){
-  const rx=w/2, ry=w*0.12, top=bottom-h, dark=shade(col,-28), light=shade(col,18);
-  let drips="";
-  for(let i=0;i<9;i++){const x=cx-rx+ (i+.5)*(w/9); const d=10+((i*37)%16); drips+=`<path d="M${x-9} ${top} q9 ${d*2} 18 0" fill="${light}"/>`;}
-  return `<path d="M${cx-rx} ${top} v${h} a${rx} ${ry} 0 0 0 ${w} 0 v${-h}z" fill="${col}"/>
-  <path d="M${cx-rx} ${bottom-14} a${rx} ${ry} 0 0 0 ${w} 0" stroke="${dark}" stroke-width="6" fill="none" stroke-dasharray="2 10" stroke-linecap="round"/>
-  <ellipse cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}" fill="${light}"/>${drips}`;
+const esc = t => t.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isDark = hex => { const c=parseInt(hex.slice(1),16); return (0.299*(c>>16)+0.587*((c>>8)&255)+0.114*(c&255)) < 140; };
+
+/* ---- cake model ---- */
+const SIZES = { "1 kg":[[8,92]], "1.5 kg":[[9,98]], "2 kg":[[10,104]], "2 tier":[[9,80],[6,72]] };   // [inches, side height px]
+const PX = 28; let K = .34;      // px per inch; how flat the top looks from the side (raised when the message is on top)
+let view = "side";
+
+function shapePts(shape, d, n = 120){       // outline seen from above, centred on 0,0, width d. +y = front
+  const pts = [];
+  if(shape === "Square"){ const s = d/2, e = .16;
+    for(let i=0;i<n;i++){ const t=i/n*Math.PI*2, c=Math.cos(t), si=Math.sin(t); pts.push([s*Math.sign(c)*Math.abs(c)**e, s*Math.sign(si)*Math.abs(si)**e]); }
+  } else if(shape === "Heart"){ const raw = [];
+    for(let i=0;i<n;i++){ const t=i/n*Math.PI*2; raw.push([16*Math.sin(t)**3, -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))]); }
+    const xs=raw.map(p=>p[0]), ys=raw.map(p=>p[1]), sc=d/(Math.max(...xs)-Math.min(...xs)), oy=(Math.max(...ys)+Math.min(...ys))/2;
+    raw.forEach(p => pts.push([p[0]*sc, (p[1]-oy)*sc]));
+  } else for(let i=0;i<n;i++){ const t=i/n*Math.PI*2; pts.push([Math.cos(t)*d/2, Math.sin(t)*d/2]); }
+  return pts;
 }
+const path = P => "M" + P.map(p => p[0].toFixed(1)+" "+p[1].toFixed(1)).join("L") + "Z";
+const proj = (P, cx, cy) => P.map(([x,y]) => [cx+x, cy+y*K]);
+function envelope(P, N = 70){ // front edge of a projected outline: the lowest point at each x
+  const xs = P.map(p=>p[0]), x0 = Math.min(...xs), x1 = Math.max(...xs), out = [];
+  for(let i=0;i<=N;i++){ const x = x0+(x1-x0)*i/N; let best = -Infinity;
+    for(let j=0;j<P.length;j++){ const a=P[j], b=P[(j+1)%P.length];
+      if((a[0]-x)*(b[0]-x) <= 0 && a[0] !== b[0]){ const y = a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]); if(y > best) best = y; } }
+    if(best > -Infinity) out.push([x, best]); }
+  return out;
+}
+function dots(P, gap, fill, r, open){ // piped beads every `gap` px along an outline
+  let s = "", acc = gap; const n = P.length, L = open ? n-1 : n;
+  for(let i=0;i<L;i++){ const a=P[i], b=P[(i+1)%n], seg=Math.hypot(b[0]-a[0], b[1]-a[1]); let t = acc;
+    while(t <= seg){ s += `<circle cx="${(a[0]+(b[0]-a[0])*t/seg).toFixed(1)}" cy="${(a[1]+(b[1]-a[1])*t/seg).toFixed(1)}" r="${r}" fill="${fill}"/>`; t += gap; }
+    acc = t - seg; }
+  return s;
+}
+function splitMsg(m){ if(m.length <= 14 || !m.includes(" ")) return [m];
+  const mid = m.length/2; let best = -1; for(let i=0;i<m.length;i++) if(m[i]===" " && (best<0 || Math.abs(i-mid) < Math.abs(best-mid))) best = i;
+  return [m.slice(0,best), m.slice(best+1)]; }
+function textBlock(m, x, y, width, maxFs, fill){
+  const L = splitMsg(m), longest = Math.max(1, ...L.map(l=>l.length)), fs = Math.max(11, Math.min(maxFs, width/(longest*.47))), lh = fs*.98;
+  return L.map((l,i) => `<text x="${x}" y="${(y+(i-(L.length-1)/2)*lh).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-family="Caveat, cursive" font-weight="700" font-size="${fs.toFixed(1)}" fill="${fill}">${esc(l)}</text>`).join("");
+}
+function topperSpots(kind, shape, d){ // where toppers sit on the top tier, in top-view coordinates
+  if(kind === "Fresh strawberries"){ const P = shapePts(shape, d*.8, 120), n = 10; return Array.from({length:n}, (_,i) => P[Math.floor(i*120/n)]); }
+  if(kind === "Candles") return [200,235,270,305,340].map(a => [Math.cos(a*Math.PI/180)*d*.3, Math.sin(a*Math.PI/180)*d*.3]);
+  if(kind === "Fresh flowers") return [[-.26,-.2],[-.06,-.3],[.18,-.22],[-.14,-.06]].map(([x,y]) => [x*d, y*d]);
+  if(kind === "Hearts") return [[-.24,-.22],[0,-.3],[.24,-.22]].map(([x,y]) => [x*d, y*d]);
+  return [];
+}
+const flowerCols = ["#E0405F","#FFF3D9","#F6B93B","#C9B6E8"];
+function topperSide(kind, x, y, i){ // standing toppers, seen from the side
+  if(kind === "Fresh strawberries") return `<ellipse cx="${x}" cy="${y-8}" rx="8" ry="9.5" fill="#D7263D"/><ellipse cx="${x-2.5}" cy="${y-11}" rx="2.2" ry="3" fill="#F26A7A" opacity=".8"/><path d="M${x-7} ${y-16} q7 -6 14 0 q-3 4 -7 1 q-4 3 -7 -1z" fill="#3F8F3A"/>`;
+  if(kind === "Candles") return `<rect x="${x-3.5}" y="${y-40}" width="7" height="40" rx="2.5" fill="${i%2?'#9CC9EE':'#F49AB0'}"/><path d="M${x-3.5} ${y-30}l7 -5M${x-3.5} ${y-18}l7 -5" stroke="#fff" stroke-width="1.6" opacity=".7"/><path class="flame" d="M${x} ${y-56} q7 9 0 14 q-7 -5 0 -14" fill="#F6B93B"/>`;
+  if(kind === "Fresh flowers"){ const c = flowerCols[i%4]; let s = ""; for(let a=0;a<5;a++){ const t=a*72*Math.PI/180; s += `<circle cx="${(x+Math.cos(t)*8).toFixed(1)}" cy="${(y-12+Math.sin(t)*6).toFixed(1)}" r="7.5" fill="${c}" stroke="rgba(0,0,0,.08)"/>`; } return s + `<circle cx="${x}" cy="${y-12}" r="4.5" fill="#F6B93B"/>`; }
+  if(kind === "Hearts") return `<path d="M${x} ${y-4} l-13 -13 a7.5 7.5 0 0 1 13 -10 a7.5 7.5 0 0 1 13 10z" fill="#E0405F"/>`;
+  return "";
+}
+function topperTop(kind, x, y, i){ // the same toppers seen from above
+  if(kind === "Fresh strawberries"){ let s = `<circle cx="${x}" cy="${y}" r="9" fill="#D7263D"/><circle cx="${x-3}" cy="${y-3}" r="2.5" fill="#F26A7A" opacity=".8"/>`; for(let a=0;a<5;a++){ const t=a*72*Math.PI/180; s += `<ellipse cx="${(x+Math.cos(t)*3.5).toFixed(1)}" cy="${(y+Math.sin(t)*3.5).toFixed(1)}" rx="3.5" ry="1.6" transform="rotate(${a*72} ${(x+Math.cos(t)*3.5).toFixed(1)} ${(y+Math.sin(t)*3.5).toFixed(1)})" fill="#3F8F3A"/>`; } return s; }
+  if(kind === "Candles") return `<circle cx="${x}" cy="${y}" r="5" fill="${i%2?'#9CC9EE':'#F49AB0'}"/><circle cx="${x}" cy="${y}" r="7" fill="#F6B93B" opacity=".25"/><circle cx="${x}" cy="${y}" r="2.6" fill="#F6B93B"/>`;
+  if(kind === "Fresh flowers"){ const c = flowerCols[i%4]; let s = ""; for(let a=0;a<5;a++){ const t=a*72*Math.PI/180; s += `<circle cx="${(x+Math.cos(t)*9).toFixed(1)}" cy="${(y+Math.sin(t)*9).toFixed(1)}" r="8" fill="${c}" stroke="rgba(0,0,0,.08)"/>`; } return s + `<circle cx="${x}" cy="${y}" r="5" fill="#F6B93B"/>`; }
+  if(kind === "Hearts") return `<path d="M${x} ${y+9} l-12 -12 a7 7 0 0 1 12 -9 a7 7 0 0 1 12 9z" fill="#E0405F"/>`;
+  return "";
+}
+function boardText(m){ return m ? `❤ ${m} ❤` : ""; }
+
+function drawSide(o){
+  K = (o.place === "top" && o.msg) ? .5 : .34;
+  const cx = 200, baseY = 300, t0 = o.tiers[0], boardR = t0.d/2 + (o.place==="board" ? 46 : 24);
+  let s = `<ellipse cx="${cx}" cy="${baseY+7}" rx="${boardR}" ry="${boardR*K}" fill="#E4D6BC"/><ellipse cx="${cx}" cy="${baseY}" rx="${boardR}" ry="${boardR*K}" fill="#FFFDF8"/>`;
+  let topCy = baseY, last;
+  o.tiers.forEach((t, i) => {
+    topCy -= t.h;
+    const P = proj(shapePts(o.shape, t.d), cx, topCy), env = envelope(P), body = env.map(([x,y]) => [x, y+t.h]).concat(env.slice().reverse());
+    const id = "sg" + i, dark = shade(o.col,-38), light = shade(o.col,16);
+    s += `<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${dark}"/><stop offset=".3" stop-color="${o.col}"/><stop offset=".72" stop-color="${o.col}"/><stop offset="1" stop-color="${dark}"/></linearGradient></defs>`;
+    s += `<path d="${path(proj(shapePts(o.shape, t.d*1.02), cx, topCy+t.h+4))}" fill="rgba(0,0,0,.09)"/>`;
+    s += `<path d="${path(body)}" fill="url(#${id})"/><path d="${path(P)}" fill="${light}"/>`;
+    s += dots(P, 9, shade(o.col,-10), 3.4) + dots(env.map(([x,y]) => [x, y+t.h-3]), 11, shade(o.col,-24), 4.2, true);
+    t.front = Math.max(...env.map(p=>p[1])); t.topCy = topCy;
+    if(i === 0) o.t0front = t.front;
+    last = t;
+  });
+  const ink = isDark(o.col) ? "#FFF3D9" : "#3A2118", m = o.msg;
+  if(m && o.place === "top"){
+    const dy = (o.topper==="Fresh strawberries"||o.topper==="None") ? 0 : last.d*.12;
+    s += `<g transform="translate(${cx} ${last.topCy}) scale(1 ${K})">${textBlock(m, 0, dy, last.d*.6, 40, ink)}</g>`;
+  }
+  if(m && o.place === "side") s += textBlock(m, cx, t0.front + t0.h/2 - 4, t0.d*.66, 30, ink);
+  if(m && o.place === "board"){ const r = (t0.d/2 + boardR)/2; s += `<g transform="translate(${cx} ${baseY + r*K}) scale(1 .62)"><text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-family="Caveat, cursive" font-weight="700" font-size="21" fill="#D93A5B">${esc(boardText(m))}</text></g>`; }
+  const spots = topperSpots(o.topper, o.shape, last.d * (o.topper === "Fresh strawberries" && o.place === "top" ? 1.06 : 1)).map(([x,y],i) => [cx+x, last.topCy+y*K, i]).sort((a,b) => a[1]-b[1]);
+  spots.forEach(([x,y,i]) => s += topperSide(o.topper, +x.toFixed(1), +y.toFixed(1), i));
+  return s;
+}
+function drawTop(o){
+  K = .34;
+  const cx = 200, cy = 200, t0 = o.tiers[0], boardR = t0.d/2 + (o.place==="board" ? 46 : 24);
+  let s = `<circle cx="${cx}" cy="${cy+4}" r="${boardR}" fill="rgba(0,0,0,.07)"/><circle cx="${cx}" cy="${cy}" r="${boardR}" fill="#FFFDF8" stroke="#E4D6BC" stroke-width="3"/>`;
+  o.tiers.forEach((t, i) => {
+    const P = shapePts(o.shape, t.d).map(([x,y]) => [cx+x, cy+y]);
+    if(i) s += `<path d="${path(P.map(([x,y]) => [x+2, y+6]))}" fill="rgba(0,0,0,.12)"/>`;
+    s += `<path d="${path(P)}" fill="${shade(o.col, i ? 18 : 8)}" stroke="${shade(o.col,-18)}" stroke-width="1.5"/>`;
+    s += dots(P, 10, shade(o.col,-14), 3.6);
+  });
+  const last = o.tiers[o.tiers.length-1], ink = isDark(o.col) ? "#FFF3D9" : "#3A2118", m = o.msg;
+  topperSpots(o.topper, o.shape, last.d).forEach(([x,y],i) => s += topperTop(o.topper, +(cx+x).toFixed(1), +(cy+y).toFixed(1), i));
+  if(m && o.place === "top"){ const dy = (o.topper==="Fresh strawberries"||o.topper==="None") ? 0 : last.d*.14; s += textBlock(m, cx, cy+dy, last.d*.7, 44, ink); }
+  if(m && o.place === "side") s += `<text x="${cx}" y="${cy + boardR + 2}" text-anchor="middle" font-size="12" font-weight="600" fill="#6E5047" font-family="DM Sans, sans-serif" dy="-6">Message on the side: switch to side view</text>`;
+  if(m && o.place === "board"){ const r = (t0.d/2 + boardR)/2 + 7;
+    s += `<path id="boardArc" d="M ${cx-r} ${cy} A ${r} ${r} 0 0 0 ${cx+r} ${cy}" fill="none"/><text font-family="Caveat, cursive" font-weight="700" font-size="21" fill="#D93A5B" text-anchor="middle"><textPath href="#boardArc" startOffset="50%">${esc(boardText(m))}</textPath></text>`; }
+  return s;
+}
+
 let lastKey = "";
+const placeLabel = {top:"on top", side:"on the side", board:"on the board"};
+function readOrder(){
+  const size = val("size"), shape = val("shape"), colIn = document.querySelector('input[name="colour"]:checked');
+  return { size, shape, tiers: SIZES[size].map(([inch,h]) => ({inch, d: inch*PX, h})), col: colIn.dataset.hex, colName: colIn.value,
+    topper: val("topper"), msg: $("#message").value.trim(), place: val("place"), flavour: val("flavour") };
+}
+function sizeText(o){ return o.tiers.length > 1 ? `${o.tiers.map(t=>t.inch).join(" + ")} inch, ${o.shape.toLowerCase()}` : `approx. ${o.tiers[0].inch} inch ${o.shape.toLowerCase()}`; }
+function setView(v, animate){
+  if(v === view && !animate) return;
+  view = v;
+  document.querySelectorAll(".views button").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === v));
+  $("#cakeSvg").setAttribute("viewBox", v === "top" ? "0 0 400 400" : "0 50 400 335");
+  draw();
+  const M = window.Motion; if(M && M.gsap && !M.reduced) M.gsap.fromTo("#cake", {opacity:0, scale:.94, svgOrigin:"200 220"}, {opacity:1, scale:1, duration:.55, ease:"expo.out"});
+}
 function draw(e){
-  const size = val("size"), col = document.querySelector('input[name="colour"]:checked').dataset.hex;
-  const dims = {"1 kg":[210,90],"1.5 kg":[250,100],"2 kg":[290,108],"2 tier":[280,92]}[size];
-  let svg = "", topY;
-  if(size==="2 tier"){
-    svg += tier(200,346,dims[0],dims[1],col);
-    svg += tier(200,346-dims[1]-4,180,78,col);
-    topY = 346-dims[1]-82;
-  } else { svg += tier(200,346,dims[0],dims[1],col); topY = 346-dims[1]; }
-  $("#tiers").innerHTML = svg;
-  const m = $("#message"); const msg = m.value.trim();
-  const tx = $("#msg"); tx.textContent = msg; tx.setAttribute("y", size==="2 tier" ? 346-30 : 346-dims[1]/2+8);
-  tx.setAttribute("fill", parseInt(col.slice(1),16) < 0x888888 ? "#FFF3D9" : "#3A2118");
-  tx.setAttribute("font-size", msg.length>18 ? 24 : 30);
-  const tp = val("topper"); let top = "";
-  const ty = topY - (dims[0]*0.06);
-  if(tp==="Candles"){ for(let i=-2;i<=2;i++){const x=200+i*26; top+=`<rect x="${x-4}" y="${ty-46}" width="8" height="40" rx="3" fill="${i%2?'#9CC9EE':'#E0405F'}"/><path class="flame" d="M${x} ${ty-62} q8 10 0 16 q-8 -6 0 -16" fill="#F6B93B"/>`;} }
-  if(tp==="Fresh flowers"){ [[-40,"#E0405F"],[0,"#F6B93B"],[40,"#C9B6E8"]].forEach(([dx,c])=>{const x=200+dx,y=ty-14; for(let a=0;a<5;a++){const ang=a*72*Math.PI/180; top+=`<circle cx="${x+Math.cos(ang)*10}" cy="${y+Math.sin(ang)*10}" r="9" fill="${c}"/>`;} top+=`<circle cx="${x}" cy="${y}" r="6" fill="#FFF3D9"/>`;}); }
-  if(tp==="Fresh strawberries"){ const rx=(size==="2 tier"?180:dims[0])/2*0.82; for(let i=0;i<9;i++){const a=Math.PI*(1.05+i*0.11); const x=200+Math.cos(a)*rx, y=topY+Math.sin(a)*rx*0.18-6; top+=`<path d="M${x} ${y+12} c-9 -4 -10 -14 -4 -18 c3 -2 6 -1 4 0 c-2 -1 1 -2 4 0 c6 4 5 14 -4 18z" fill="#D7263D"/><path d="M${x-5} ${y-5} l5 3 l5 -3 l-5 -2z" fill="#3F8F3A"/>`;} }
-  if(tp==="Hearts"){ [-36,0,36].forEach((dx,i)=>{const x=200+dx,y=ty-18-(i===1?12:0); top+=`<path d="M${x} ${y+12} l-14 -14 a8 8 0 0 1 14 -10 a8 8 0 0 1 14 10z" fill="#E0405F"/>`;}); }
-  $("#topper").innerHTML = top;
-  $("#summary").textContent = `${size} · ${val("flavour").replace(" (I'll explain)","")} · ${document.querySelector('input[name="colour"]:checked').value}`;
-  // little bounce when the cake itself changes (not on every keystroke)
-  const key = size + col + tp, M = window.Motion;
+  // a heart is a single tier
+  const tiered = val("size") === "2 tier", heart = $("#heartOpt");
+  heart.disabled = tiered; if(tiered && heart.checked){ document.querySelector('input[name="shape"][value="Round"]').checked = true; }
+  $("#shapeHint").textContent = tiered ? "Heart cakes are single tier. Ask us about tiered heart designs." : "";
+  const o = readOrder();
+  $("#cake").innerHTML = view === "top" ? drawTop(o) : drawSide(o);
+  $("#summary").textContent = `${o.size} · ${sizeText(o)} · ${o.flavour.replace(" (I'll explain)","")} · ${o.colName}${o.msg ? " · message " + placeLabel[o.place] : ""}`;
+  $("#cakeSvg").setAttribute("aria-label", `${view === "top" ? "Top" : "Side"} view of your cake: ${$("#summary").textContent}`);
+  const key = o.size + o.shape + o.col + o.topper, M = window.Motion;
   if(e && key !== lastKey && M && M.gsap && !M.reduced){
-    M.gsap.fromTo("#tiers", {scaleY:.9, scaleX:1.04}, {scaleY:1, scaleX:1, duration:.9, ease:"elastic.out(1,.35)", svgOrigin:"200 346"});
-    M.gsap.fromTo("#topper > *", {y:-40, opacity:0}, {y:0, opacity:1, duration:.7, stagger:.05, ease:"back.out(2)"});
+    M.gsap.fromTo("#cake", {scaleY:.92, scaleX:1.03}, {scaleY:1, scaleX:1, duration:.9, ease:"elastic.out(1,.35)", svgOrigin: view === "top" ? "200 200" : "200 300"});
   }
   lastKey = key;
 }
 document.querySelectorAll("#orderForm input, #orderForm textarea").forEach(el => el.addEventListener("input", draw));
+// show the angle where the message is visible
+$("#message").addEventListener("input", () => { const p = val("place"); if(p !== "side" && view !== "top") setView("top"); if(p === "side" && view !== "side") setView("side"); });
+document.querySelectorAll('input[name="place"]').forEach(r => r.addEventListener("change", () => setView(r.value === "side" ? "side" : "top")));
+document.querySelectorAll(".views button").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
 draw();
 $("#send").addEventListener("click", () => {
   const lines = [
     "Hi Cake Luv! I'd like to order a cake 🎂",
-    `• Size: ${val("size")}`,
+    `• Size: ${val("size")} (${sizeText(readOrder())})`,
+    `• Shape: ${val("shape")}`,
     `• Flavour: ${val("flavour")}`,
     `• Icing colour: ${document.querySelector('input[name="colour"]:checked').value}`,
     `• Topper: ${val("topper")}`,
-    `• Message: "${$("#message").value.trim()}"`,
+    `• Message: "${$("#message").value.trim()}" (${placeLabel[val("place")]})`,
     `• Date: ${$("#date").value}`,
     `• ${val("get")}`,
   ];
   if($("#notes").value.trim()) lines.push(`• Notes: ${$("#notes").value.trim()}`);
   if($("#name").value.trim()) lines.push(`— ${$("#name").value.trim()}`);
-  if(window.trackLead) trackLead("order_request", {size: val("size"), flavour: val("flavour")});
+  if(window.trackLead) trackLead("order_request", {size: val("size"), shape: val("shape"), placement: val("place")});
   window.open(waLink(lines.join("\n")), "_blank", "noopener");
 });
 
